@@ -19,7 +19,7 @@ export const routes: Routes = [
     { path: 'notes/payable-notes', component: PayableNotesComponent, data: { title: '관리/회계 > 지급어음명세서', id:159 }, canActivate: [AuthGuard] },
     { path: 'notes/receivable-notes', component: ReceivableNotesComponent, data: { title: '관리/회계 > 받을어음명세서', id:160 }, canActivate: [AuthGuard] },
 ];
-
+ 
 // Datepicker Config
 defineLocale('ko', koLocale);
 export function getDatepickerConfig(): BsDatepickerConfig {
