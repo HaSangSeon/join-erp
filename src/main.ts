@@ -2,11 +2,14 @@ import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import { AppConfig } from './environments/environment';
 
-if (environment.production) {
-  enableProdMode();
+if (AppConfig.production) {
+    enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+platformBrowserDynamic()
+    .bootstrapModule(AppModule, {
+        preserveWhitespaces: true   // angular6부터 기본값이 false.
+    })
+    .catch(err => console.error(err));
