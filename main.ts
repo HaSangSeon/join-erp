@@ -69,7 +69,7 @@ function createWindow() {
         require('electron-reload')(__dirname, {
             electron: require(`${__dirname}/node_modules/electron`)
         });
-        mainWin.loadURL('http://localhost:4200');
+        mainWin.loadURL('http://localhost:4300');
     } else {
         mainWin.loadURL(url.format({
             pathname: path.join(__dirname, 'dist/index.html'),
