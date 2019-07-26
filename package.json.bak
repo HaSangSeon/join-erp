@@ -2,7 +2,7 @@
     "name": "SEIL-ERP",
     "version": "0.8.78",
     "description": "JOIN-ERP(PC)",
-    "homepage": "http://erp01.innest.co.kr",
+    "homepage": "http://corshair.innest.co.kr",
     "author": {
         "name": "INNEST",
         "email": "xdinner@gmail.com"
@@ -95,12 +95,12 @@
         "zone.js": "0.8.26"
     },
     "build": {
-        "appId": "com.innest.seil-danjo-erp",
+        "appId": "com.HaSangSeon.seil-erp",
         "publish": [
             {
                 "provider": "github",
-                "owner": "innest",
-                "repo": "seil-danjo-release"
+                "owner": "HaSangSeon",
+                "repo": "seil-erp"
             }
         ],
         "directories": {
