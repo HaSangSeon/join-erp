@@ -1,0 +1,364 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="text-center">
+      <span class="h4 block m-b-sm"> {{ panelTitle }} </span>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <form [formGroup]="searchForm">
+          <span class="inline m-r-sm">성명:</span>
+          <input placeholder="사원이름" class="input-sm form-control w-sm inline v-middle" />
+          <button (click)="getAll()" class="btn btn-sm btn-default">검색</button>
+        </form>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button (click)="openModal('upload')" class="btn btn-sm btn-success btn-addon">
+          <i class="glyphicon glyphicon-upload"></i>엑셀업로드
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- [messages]="messages" -->
+  <div class="panel-body">
+    <ngx-datatable [style.height.px]=gridHeight class="bootstrap" [columnMode]="'force'" [headerHeight]="30"
+      [rowHeight]="30" [scrollbarV]="true" [scrollbarH]="false" [selectionType]="'checkbox'"
+      (select)="onSelect($event)">
+      <ngx-datatable-column prop="id" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+        [resizeable]="false" headerClass="checkAll" cellClass="text-center">
+        <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
+          let-selectFn="selectFn">
+          <label class="i-checks i-checks-sm m-b-none">
+            <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" /><i></i>
+          </label>
+        </ng-template>
+        <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
+          let-onCheckboxChangeFn="onCheckboxChangeFn">
+          <label class="i-checks i-checks-sm m-b-none">
+            <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" /><i></i>
+          </label>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="" name="사번" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="성명" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="부서" [resizeable]="false"></ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+
+
+  <div class="panel-footer text-right">
+
+    <button (click)="openModal('write')" class="btn btn-sm btn-primary btn-addon">
+      <i class="glyphicon glyphicon-plus"></i>등록
+    </button>
+    <a href="" class="btn btn-sm btn-info btn-addon"><i class="glyphicon glyphicon-print"></i>인쇄</a>
+    <a href="" class="btn btn-sm btn-success btn-addon"><i class="glyphicon glyphicon-download-alt"></i>엑셀</a>
+
+  </div>
+
+</div>
+
+<!-- 사원등록 -->
+<div bsModal #InputFormModal="bs-modal" id="input-form" class="modal modal-xl-center fade" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-xl-center">
+    <div class="modal-content modal-xl">
+
+      <form [formGroup]="inputForm">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="InputFormModal.hide()"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">{{ inputFormTitle }}</h4>
+        </div>
+
+        <div class="modal-body">
+          <input type="hidden" id="reservation_id" name="reservation_id" />
+          <input type="hidden" id="goods_name" name="goods_name" />
+          <input type="hidden" id="fare_per_person" name="fare_per_person" />
+
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_name" class="col-lg-2 control-label">
+                사번
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-sm"
+                  style="float: left" />
+                <label>&nbsp;</label>
+                <button type="button" (click)="Save()" [disabled]="!inputForm.valid"
+                  class="btn btn-info btn-save">중복체크</button>
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                비밀번호
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                  class="form-control inline w-sm" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_name" class="col-lg-2 control-label">
+                성명
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                  class="form-control inline w-sm" />
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                주민등록번호
+              </label>
+              <div class="col-lg-4">
+                  <div class="col-sm-offset-0" style="float: left">
+                    <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-xs" />
+                  </div>
+                  <label style="float: left">&nbsp;-&nbsp;</label>
+                  <div class="col-sm-offset-0" style="float: left">
+                    <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-xs" />
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_name" class="col-lg-2 control-label">
+                부서
+              </label>
+              <div class="col-lg-4">
+                <select formControlName="production_line" id="production_line"
+                  class="input-sm form-control w-sm inline v-middle">
+                  <option value=""></option>
+                  <option *ngFor="let line of productionLines" value="{{ line.LineCode }}">
+                    {{ line.LineCode }}-{{ line.EquipmentName }}</option>
+                </select>
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                입사일자
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-sm" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                직위
+              </label>
+              <div class="col-lg-4">
+                <select id="a" class="form-control w-sm">
+                  <option value="111">전체</option>
+                  <option value="001">회장</option>
+                  <option value="002">부회장</option>
+                  <option value="003">사장</option>
+                  <option value="004">부사장</option>
+                  <option value="005">전무</option>
+                  <option value="006">상무</option>
+                  <option value="007">이사</option>
+                  <option value="008">부장</option>
+                  <option value="009">차장</option>
+                  <option value="010">과장</option>
+                  <option value="011">대리</option>
+                  <option value="012">계장</option>
+                  <option value="013">주임</option>
+                  <option value="014">사원</option>
+                </select>
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                직급
+              </label>
+              <div class="col-lg-4">
+                <select id="b" class="form-control w-sm">
+                  <option value="11">전체</option>
+                  <option value="01">1급</option>
+                  <option value="02">2급</option>
+                  <option value="03">3급</option>
+                  <option value="04">4급</option>
+                  <option value="05">5급</option>
+                  <option value="06">6급</option>
+                  <option value="07">7급</option>
+                  <option value="08">8급</option>
+                  <option value="09">9급</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                직책
+              </label>
+              <div class="col-lg-4">
+                <select id="c" class="form-control w-sm">
+                  <option value="110">전체</option>
+                  <option value="010">CEO</option>
+                  <option value="020">CFO</option>
+                  <option value="030">COO</option>
+                  <option value="040">본부장</option>
+                  <option value="050">사업부장</option>
+                  <option value="060">파트장</option>
+                  <option value="070">팀장</option>
+                  <option value="080">실장</option>
+                </select>
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                직종
+              </label>
+              <div class="col-lg-4">
+                <select id="d" class="form-control w-sm">
+                  <option value="000">전체</option>
+                  <option value="100">행정직</option>
+                  <option value="200">기술직</option>
+                  <option value="300">기능직</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                휴대폰
+              </label>
+              <div class="col-lg-4">
+                <div class="col-sm-offset-0" style="float: left">
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-4x" />
+                </div>
+                <label style="float: left">&nbsp;-&nbsp;</label>
+                <div class="col-sm-offset-0" style="float: left">
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-4x" />
+                </div>
+                <label style="float: left">&nbsp;-&nbsp;</label>
+                <div class="col-sm-offset-0" style="float: left">
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-4x" />
+                </div>
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                전화
+              </label>
+              <div class="col-lg-4">
+                <div class="col-sm-offset-0" style="float: left">
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-4x" />
+                </div>
+                <label style="float: left">&nbsp;-&nbsp;</label>
+                <div class="col-sm-offset-0" style="float: left">
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-4x" />
+                </div>
+                <label style="float: left">&nbsp;-&nbsp;</label>
+                <div class="col-sm-offset-0" style="float: left">
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-4x" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                E-mail
+              </label>
+              <div class="col-lg-10">
+                <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-md" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                주소
+              </label>
+              <div class="col-lg-4">
+                <div class="col-sm-offset-0" style="float: left">
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-4x" />
+                </div>
+                <label style="float: left">&nbsp;-&nbsp;</label>
+                <div class="col-sm-offset-0" style="float: left">
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-4x"
+                    style="float: left" />
+                  <label>&nbsp;</label>
+                  <button type="button" (click)="Save()" [disabled]="!inputForm.valid"
+                    class="btn btn-info btn-save">우편번호검색</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_phone" class="col-lg-2 control-label">
+              </label>
+              <div class="col-lg-4">
+                <div class="col-sm-offset-0" style="float: left">
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-xxl" />
+                </div>
+                <div class="col-lg-1">
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-md" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                사진
+              </label>
+              <div class="col-lg-4">
+                <div class="col-sm-offset-0">
+                  <button type="button" (click)="Save()" [disabled]="!inputForm.valid"
+                  class="btn btn-default btn-save" style="float: left">파일선택</button>
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-lg" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                첨부파일
+              </label>
+              <div class="col-lg-4">
+                <div class="col-sm-offset-0">
+                    <button type="button" (click)="Save()" [disabled]="!inputForm.valid"
+                    class="btn btn-default btn-save" style="float: left">파일선택</button>
+                    <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-lg" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label for="brief_summary" class="col-lg-2 control-label inline">
+                적요
+              </label>
+              <div class="col-lg-4">
+                <input type="text" formControlName="brief_summary" id="brief_summary" class="form-control w-xxl"
+                  style="height: 100px" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <div class="text-center">
+            <button type="button" (click)="Save()" [disabled]="!inputForm.valid"
+              class="btn btn-primary btn-save">완료</button>
+            <button type="button" (click)="InputFormModal.hide()" class="btn btn-primary btn-cancel">취소</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+  </div>
+
+</div>
