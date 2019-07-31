@@ -158,33 +158,56 @@
 						</li>
 						<li class="line dk"></li>
 						-->
-<ng-template ngFor let-navItem [ngForOf]="navitems">
+<!-- <ng-template ngFor let-navItem [ngForOf]="navitems">
+	<li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+		<span>{{ navItem.name }}</span>
+	</li>
+	<li *ngFor="let menu of navItem.nav; let i = index" [ngClass]="{'active': currentMenu==menu.src}">
+		<a [routerLink]="menu.src" class="auto">
+			<span *ngIf="menu.sub" class="pull-right text-muted">
+				<i class="fa fa-fw fa-angle-right text"></i>
+				<i class="fa fa-fw fa-angle-down text-active"></i>
+			</span>
+			<i class="menuNo">{{ menu.no }}</i>
+			<span class="font-bold">{{ menu.name }}</span>
+		</a>
+		<ul *ngIf="menu.sub.length > 0" class="nav nav-sub dk">
+			<li class="nav-sub-header">
+				<a [routerLink]="menu.src">
+					<span>{{ menu.name }}</span>
+				</a>
+			</li>
+			<li *ngFor="let submenu of menu.sub; let j = index" [ngClass]="{'active': currentSubmenu==submenu.src}">
+				<a [routerLink]="submenu.src"><i class="subMenuNo">{{ submenu.no }}</i>{{ submenu.name }}</a>
+			</li>
+		</ul>
+		// /.nav-second-level
+	</li>
+<li class="line dk hidden-folded"></li>
+</ng-template> -->
+
+<!-- test s -->
+
 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-	<span>{{ navItem.name }}</span>
+	<span>환경설정</span>
 </li>
-<li *ngFor="let menu of navItem.nav; let i = index" [ngClass]="{'active': currentMenu==menu.src}">
-	<a [routerLink]="menu.src" class="auto">
-		<span *ngIf="menu.sub" class="pull-right text-muted">
+<li >
+	<a [routerLink]="['test']">
+		<span class="pull-right text-muted">
 			<i class="fa fa-fw fa-angle-right text"></i>
 			<i class="fa fa-fw fa-angle-down text-active"></i>
 		</span>
-		<i class="menuNo">{{ menu.no }}</i>
-		<span class="font-bold">{{ menu.name }}</span>
+		<i class="menuNo"> 10 </i>
+		<span class="font-bold"> 기본사항 </span>
 	</a>
-	<ul *ngIf="menu.sub.length > 0" class="nav nav-sub dk">
-		<li class="nav-sub-header">
-			<a [routerLink]="menu.src">
-				<span>{{ menu.name }}</span>
-			</a>
-		</li>
-		<li *ngFor="let submenu of menu.sub; let j = index" [ngClass]="{'active': currentSubmenu==submenu.src}">
-			<a [routerLink]="submenu.src"><i class="subMenuNo">{{ submenu.no }}</i>{{ submenu.name }}</a>
-		</li>
-	</ul>
-	<!-- /.nav-second-level -->
+	
 </li>
-<li class="line dk hidden-folded"></li>
-</ng-template>
+<li><a [routerLink]="['/test/test1']"><i class="subMenuNo">1</i><span>사원등록</span></a></li>
+<li><a [routerLink]="['/test/test2']"><i class="subMenuNo">2</i><span>부서등록</span></a></li>
+<li><a [routerLink]="['/test/test3']"><i class="subMenuNo">3</i><span>수당항목등록</span></a></li>
+<li><a [routerLink]="['/test/test4']"><i class="subMenuNo">4</i><span>호봉제임금테이블</span></a></li>
+
+<!-- test e -->
 						<!--
 						<li *ngIf="menus3" class="line dk hidden-folded"></li>
 
@@ -252,7 +275,7 @@
     <footer id="footer" class="app-footer navbar-fixed-bottom">
     	<div class="b-t bg-light" style="padding:7px 20px 8px 20px">
     		<span class="pull-right">{{ version }}</span>
-    		SEIL ERP<!-- &copy; 2017 Copyright. -->
+    		JOIN ERP<!-- &copy; 2017 Copyright. -->
     	</div>
     </footer>
     <!-- / footer -->

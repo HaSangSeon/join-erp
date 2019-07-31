@@ -713,6 +713,16 @@ pre {
     padding: 0;
 }
 
+.modal-content.modal-s {
+    height: auto;
+    min-height: 20%;
+}
+
+.modal-content.modal-m {
+    height: auto;
+    min-height: 40%;
+}
+
 .modal-content.modal-xl {
     height: auto;
     min-height: 80%;
@@ -4990,6 +5000,10 @@ a.text-#000000:hover {
 
 .w-3x {
     width: 3em;
+}
+
+.w-4x {
+    width: 4em;
 }
 
 .w-xxs {

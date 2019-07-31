@@ -1,0 +1,120 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="text-center">
+      <span class="h4 block m-b-sm"> {{ panelTitle }} </span>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <form [formGroup]="searchForm">
+          <span class="inline m-r-sm">부서:</span>
+          <input formControlName="sch_partner_name"
+              placeholder="부서이름"
+              class="input-sm form-control w-sm inline v-middle" />
+          <button (click)="getAll()" class="btn btn-sm btn-default">검색</button>
+      </form>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button (click)="openModal('upload')" class="btn btn-sm btn-success btn-addon">
+        <i class="glyphicon glyphicon-upload"></i>엑셀업로드
+        </button>
+    </div>
+    </div>
+  </div>
+
+<!-- [messages]="messages" -->
+  <div class="panel-body">
+        <ngx-datatable
+            [style.height.px] = gridHeight
+            class="bootstrap"
+            [columnMode]="'force'"
+            [headerHeight]="30"
+            [rowHeight]="30"
+            [scrollbarV]="true"
+            [scrollbarH]="false"
+            [selectionType]="'checkbox'"
+            (select)="onSelect($event)">
+            <ngx-datatable-column prop="id" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false" headerClass="checkAll" cellClass="text-center">
+                <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                    <label class="i-checks i-checks-sm m-b-none">
+                        <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"/><i></i>
+                    </label>
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+                    <label class="i-checks i-checks-sm m-b-none">
+                        <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)"/><i></i>
+                    </label>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="" name="부서코드" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+            <ngx-datatable-column prop="" name="부서명" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+
+
+  <div class="panel-footer text-right">
+
+    <button (click)="openModal('write')" class="btn btn-sm btn-primary btn-addon">
+        <i class="glyphicon glyphicon-plus"></i>등록
+    </button>
+    <a href="" class="btn btn-sm btn-info btn-addon"><i class="glyphicon glyphicon-print"></i>인쇄</a>
+    <a href="" class="btn btn-sm btn-success btn-addon"><i class="glyphicon glyphicon-download-alt"></i>엑셀</a>
+
+  </div>
+
+</div>
+
+<!-- 부서등록 -->
+<div bsModal #InputFormModal="bs-modal" id="input-form" class="modal modal-xl-center fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-xl-center" style="width: 600px">
+        <div class="modal-content modal-ss">
+
+            <form [formGroup]="inputForm">
+                <div class="modal-header">
+                  <button type="button" class="close" (click)="InputFormModal.hide()"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">{{ inputFormTitle }}</h4>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="reservation_id" name="reservation_id" />
+                    <input type="hidden" id="goods_name" name="goods_name" />
+                    <input type="hidden" id="fare_per_person" name="fare_per_person" />
+          
+                    <div class="form-group">
+                      <div class="row">
+                        <label for="passenger_name" class="col-lg-2 control-label">
+                          부서코드 
+                        </label>
+                        <div class="col-lg-4">
+                          <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-sm" />
+                        </div>
+                      </div>
+                    </div>
+          
+                    <div class="form-group">
+                      <div class="row">
+                        <label for="passenger_name" class="col-lg-2 control-label">
+                          부서명 
+                        </label>
+                        <div class="col-lg-4">
+                          <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                            class="form-control inline w-sm" />
+                        </div>
+                        
+                      </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <div class="text-center">
+                      <button type="button" (click)="Save()" [disabled]="!inputForm.valid" class="btn btn-primary btn-save">완료</button>
+                                <button type="button" (click)="InputFormModal.hide()" class="btn btn-primary btn-cancel">취소</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+
+    </div>
+
+</div>

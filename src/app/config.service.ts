@@ -16,23 +16,23 @@ export class ConfigService {
 
     /** GET data from the server */
     public load() {
-        return new Promise((resolve, reject) => {
-            this.http.get(this.url+'?t='+this.currTime).subscribe((responseData) => {
-                this.globals.configs = responseData;
-                resolve(true);
-                this.isCorrect = true;
+        // return new Promise((resolve, reject) => {
+        //     this.http.get(this.url+'?t='+this.currTime).subscribe((responseData) => {
+        //         this.globals.configs = responseData;
+        //         resolve(true);
+        //         this.isCorrect = true;
                 
-            },
-            error => {
-                console.log(error);
-                resolve(false);
-                this.isCorrect = false;
-                // if(confirm('Error \n 확인을 누르면 기존 페이지로 넘어갑니다')){
-                //    // this.router.navigate (['/page-not-found']);
-                // };
-            });
+        //     },
+        //     error => {
+        //         console.log(error);
+        //         resolve(false);
+        //         this.isCorrect = false;
+        //         // if(confirm('Error \n 확인을 누르면 기존 페이지로 넘어갑니다')){
+        //         //    // this.router.navigate (['/page-not-found']);
+        //         // };
+        //     });
 
-        });
+        // });
     }
 
    /**

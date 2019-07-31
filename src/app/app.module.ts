@@ -52,12 +52,13 @@ export function HttpLoaderFactory(http: HttpClient) {
         AuthLayoutComponent,
         PrintLayoutComponent,
         WebviewDirective,
-        PageNotFoundComponent
+        PageNotFoundComponent,
     ],
     imports: [
         BrowserModule,
         FormsModule,
         NgxBarcodeModule,
+        NgxDatatableModule,
         SharedModule,
         HttpClientModule,
         AppRoutingModule,

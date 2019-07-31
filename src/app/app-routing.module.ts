@@ -11,15 +11,15 @@ const routes: Routes = [
     {
         path: '',
         component: AdminLayoutComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         children: [
             {
-                path: '',
+                path: '11',
                 loadChildren: './structure/dashboard/dashboard.module#DashboardModule'
             },
             {
-                path: 'accounting',
-                loadChildren: './structure/accounting/accounting.module#AccountingModule'
+                path: '',
+                loadChildren: './structure/test/test.module#TestModule'
             }
         ]
     },
