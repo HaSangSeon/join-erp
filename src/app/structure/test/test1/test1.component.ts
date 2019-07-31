@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MessageService } from '../../../message.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { AppGlobals } from '../../../app.globals';
 
 @Component({
   selector: 'app-test1',
@@ -13,6 +14,8 @@ export class Test1Component implements OnInit {
   inputFormTitle: string;
   searchForm: FormGroup;
   inputForm: FormGroup;
+  
+  messages = this.globals.datatableMessages;
 
   isExecutable: boolean = false;
 
@@ -20,7 +23,8 @@ export class Test1Component implements OnInit {
 
   constructor(
     @Inject(FormBuilder) fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private globals: AppGlobals,
   ) {
 
     this.inputForm = fb.group({
