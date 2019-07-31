@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MessageService } from '../../../message.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { AppGlobals } from '../../../app.globals';
 
 @Component({
   selector: 'app-test2',
@@ -14,11 +15,14 @@ export class Test2Component implements OnInit {
   panelTitle: string;
   inputFormTitle: string;
 
+  messages = this.globals.datatableMessages;
+
   @ViewChild('InputFormModal') inputFormModal: ModalDirective;
 
   constructor(
     @Inject(FormBuilder) fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private globals: AppGlobals,
   ) {
 
   this.inputForm = fb.group({

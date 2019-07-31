@@ -24,13 +24,13 @@ export class AppComponent {
       console.log('Mode electron');
       console.log('Electron ipcRenderer', electronService.ipcRenderer);
       console.log('NodeJS childProcess', electronService.childProcess);
-      // if(!this.configService.isCorrect){
-      //   this.router.navigate (['/page-not-found']);
-      //   console.log('nonononono')
+      if(!this.configService.isCorrect){
+        this.router.navigate (['/page-not-found']);
+        console.log('nonononono')
         
-      // }else{
+      }else{
         this.router.navigate(['/']);
-      // }
+      }
     } else {
       console.log('Mode web');
     }

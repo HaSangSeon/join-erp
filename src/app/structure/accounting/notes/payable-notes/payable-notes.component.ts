@@ -2,8 +2,8 @@ import { Component, Inject, OnInit, ViewChild, ElementRef, ViewEncapsulation } f
 import { PayableNotesService } from './payable-notes.service';
 import { MessageService } from '../../../../message.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppGlobals } from '../../../../app.globals';
 import { Item } from './payable-notes.item';
+import { AppGlobals } from '../../../../app.globals';
 
 @Component({
     selector: 'app-page',
