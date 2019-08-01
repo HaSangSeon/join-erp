@@ -4,11 +4,11 @@ import { MessageService } from '../../../message.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
-  selector: 'app-test3',
-  templateUrl: './test3.component.html',
-  styleUrls: ['./test3.component.scss']
+  selector: 'app-salary',
+  templateUrl: './salary.component.html',
+  styleUrls: ['./salary.component.scss']
 })
-export class Test3Component implements OnInit {
+export class SalaryComponent implements OnInit {
   inputForm: FormGroup;
   panelTitle: string;
   inputFormTitle: string;
