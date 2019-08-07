@@ -5,17 +5,19 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AppGlobals } from '../../../app.globals';
 
 @Component({
-  selector: 'app-test2',
-  templateUrl: './test2.component.html',
-  styleUrls: ['./test2.component.scss']
+  selector: 'app-employee',
+  templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.scss']
 })
-export class Test2Component implements OnInit {
-  searchForm: FormGroup;
-  inputForm: FormGroup;
+export class EmployeeComponent implements OnInit {
   panelTitle: string;
   inputFormTitle: string;
-
+  searchForm: FormGroup;
+  inputForm: FormGroup;
+  
   messages = this.globals.datatableMessages;
+
+  isExecutable: boolean = false;
 
   @ViewChild('InputFormModal') inputFormModal: ModalDirective;
 
@@ -25,7 +27,25 @@ export class Test2Component implements OnInit {
     private globals: AppGlobals,
   ) {
 
-  this.inputForm = fb.group({
+    this.inputForm = fb.group({
+      heat_treatment_process: '',
+      heat_treatment_criteria: '',
+      product_code: '',
+      product_name: '',
+      drawing_no: '',
+      material: '',
+      production_line: '',
+      brief_summary:'',
+  });
+
+    this.searchForm = fb.group({
+      forging_id: ['',],
+      order_date: ['',],
+      rcv_req_date: ['',],
+      poc_no: ['',],
+      order_qty: ['',],
+      partner_name: ['',],
+      partner_code: ['',],
       heat_treatment_process: '',
       heat_treatment_criteria: '',
       product_code: '',
@@ -34,17 +54,12 @@ export class Test2Component implements OnInit {
       material: ''
   });
 
-    this.searchForm = fb.group({
-      sch_partner_name: '',
-      sch_sdate: '',
-      sch_edate: ''
-  });
-
    }
 
   ngOnInit() {
-    this.panelTitle='부서정보'
-    this.inputFormTitle="부서등록"
+    this.panelTitle='사원정보'
+    this.inputFormTitle = '사원등록';
+  
 
   }
 
@@ -60,6 +75,6 @@ export class Test2Component implements OnInit {
         // return false;
     // }
 
-}
+  }
 
 }

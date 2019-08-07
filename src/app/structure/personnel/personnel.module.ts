@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule }  from '@angular/router';
 import { AuthGuard } from '../../app.auth';
-import { Test1Component } from './test1/test1.component'
-import { Test2Component } from './test2/test2.component'
-import { Test3Component } from './test3/test3.component'
-import { Test4Component } from './test4/test4.component'
+import { EmployeeComponent } from './employee/employee.component'
+import { DepartmentComponent } from './department/department.component'
+import { SalaryComponent } from './salary/salary.component'
+import { DeductionComponent } from './deduction/deduction.component'
 import { AppModule } from '../../app.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -19,11 +19,11 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { SharedModule } from '../shared/shared.module';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'test/test1', pathMatch: 'full'},
-  { path: 'test/test1', component: Test1Component, data: { title: '환경설정 > 기본사항 > 사원등록', id:111 } },
-  { path: 'test/test2', component: Test2Component, data: { title: '환경설정 > 기본사항 > 부서등록', id:112 } },
-  { path: 'test/test3', component: Test3Component, data: { title: '환경설정 > 기본사항 > 수당항목등록', id:113 } },
-  { path: 'test/test4', component: Test4Component, data: { title: '환경설정 > 기본사항 > 호봉제임금테이블', id:114 } },
+  { path: '', redirectTo: 'personnel/salary', pathMatch: 'full'},
+  { path: 'personnel/employee', component: EmployeeComponent, data: { title: '환경설정 > 기본사항 > 사원등록', id:111 } },
+  { path: 'personnel/department', component: DepartmentComponent, data: { title: '환경설정 > 기본사항 > 부서등록', id:112 } },
+  { path: 'personnel/salary', component: SalaryComponent, data: { title: '환경설정 > 기본사항 > 수당항목등록', id:113 } },
+  { path: 'personnel/deduction', component: DeductionComponent, data: { title: '환경설정 > 기본사항 > 호봉제임금테이블', id:114 } },
 ];
 
 defineLocale('ko', koLocale);
@@ -53,13 +53,13 @@ export function getDatepickerConfig(): BsDatepickerConfig{
   exports:[
   ],
   declarations: [
-    Test1Component,
-    Test2Component,
-    Test3Component,
-    Test4Component
+    EmployeeComponent,
+    DepartmentComponent,
+    SalaryComponent,
+    DeductionComponent
   ],
   providers:[
     {provide: BsDatepickerConfig, useFactory: getDatepickerConfig}
   ]
 })
-export class TestModule { }
+export class PersonnelModule { }

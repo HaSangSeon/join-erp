@@ -19,7 +19,7 @@ const routes: Routes = [
             },
             {
                 path: '',
-                loadChildren: './structure/test/test.module#TestModule'
+                loadChildren: './structure/personnel/personnel.module#PersonnelModule'
             }
         ]
     },
