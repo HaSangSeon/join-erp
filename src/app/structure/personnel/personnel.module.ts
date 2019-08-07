@@ -19,7 +19,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { SharedModule } from '../shared/shared.module';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'personnel/salary', pathMatch: 'full'},
+  { path: '', redirectTo: 'personnel/employee', pathMatch: 'full'},
   { path: 'personnel/employee', component: EmployeeComponent, data: { title: '환경설정 > 기본사항 > 사원등록', id:111 } },
   { path: 'personnel/department', component: DepartmentComponent, data: { title: '환경설정 > 기본사항 > 부서등록', id:112 } },
   { path: 'personnel/salary', component: SalaryComponent, data: { title: '환경설정 > 기본사항 > 수당항목등록', id:113 } },

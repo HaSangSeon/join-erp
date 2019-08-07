@@ -13,13 +13,11 @@
         // document.body.innerHTML = content;
         document.getElementById('print-container').innerHTML = content;
         if(etc !== null) {
-            // console.log(etc);
             setPageSize(etc.setPageSize, etc.setPageMargin);
         }
 
         //input, select 태그 value 복구
         if(etc !== null && etc.backupData !== null) {
-            // console.log(etc.backupData);
             for (let backupDataKey in etc.backupData) {
                 if(document.getElementById(backupDataKey) !== null)
                     document.getElementById(backupDataKey).value = etc.backupData[backupDataKey];

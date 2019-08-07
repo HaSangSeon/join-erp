@@ -53,7 +53,6 @@ export class DepartmentComponent implements OnInit {
     // if (this.isExecutable == true) {
         if (method == 'write') {
             this.inputFormModal.show();
-            console.log("in");
         }
     // } else {
         // alert(this.globals.isNotExecutable);
