@@ -20,7 +20,7 @@ export class AdminLayoutComponent implements OnInit {
     title = 'JOIN ERP';
     version = AppConfig.VERSION;
     page_title: string = '메인';
-    // navitems = this.globals.configs['menu'];
+    navitems = this.globals.configs['menu'];
     currentMenu: string;
     currentSubmenu: string;
     isAsideFolded: boolean = false;

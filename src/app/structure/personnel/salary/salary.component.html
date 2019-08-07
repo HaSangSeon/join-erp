@@ -7,7 +7,7 @@
             <div class="col-sm-6">
             </div>
             <div class="col-sm-6 text-right">
-                <button (click)="openModal('upload')" class="btn btn-sm btn-success btn-addon">
+                <button (click)="openModal('upload','')" class="btn btn-sm btn-success btn-addon">
                     <i class="glyphicon glyphicon-upload"></i>엑셀업로드
                 </button>
             </div>
@@ -15,245 +15,37 @@
     </div>
 
     <div class="panel-body input-form">
-        <div class="row">
-            <form [formGroup]="inputForm">
-                <!-- <input type="hidden" formControlName="tmp_slip_code" /> -->
-
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="input_date" class="col-lg-12 control-label inline" style="text-align: end">
-                                No
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="input_date" class="col-lg-12 control-label inline" style="text-align: end">
-                                1
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="input_date" class="col-lg-12 control-label inline" style="text-align: end">
-                                2
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="input_date" class="col-lg-12 control-label inline" style="text-align: end">
-                                3
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="input_date" class="col-lg-12 control-label inline" style="text-align: end">
-                                4
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="input_date" class="col-lg-12 control-label inline" style="text-align: end">
-                                5
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="input_date" class="col-lg-12 control-label inline" style="text-align: end">
-                                6
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="input_date" class="col-lg-12 control-label inline" style="text-align: end">
-                                7
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="input_date" class="col-lg-12 control-label inline" style="text-align: end">
-                                8
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="input_date" class="col-lg-5 control-label inline">
-                                수당명
-                            </label>
-                            <label for="input_date" class="col-lg-5 control-label inline">
-                                수당코드
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="slip_no" class="col-lg-5 control-label inline">
-                                기본급
-                            </label>
-                            <div class="col-lg-7">
-                                <span class="text-base inline m-t-xs">{{ n }}</span>
-                                <input type="hidden" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="slip_no" class="col-lg-5 control-label inline">
-                                야근수당
-                            </label>
-                            <div class="col-lg-7">
-                                <span class="text-base inline m-t-xs">{{ n }}</span>
-                                <input type="hidden" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="slip_no" class="col-lg-5 control-label inline">
-                                주말근무수당
-                            </label>
-                            <div class="col-lg-7">
-                                <span class="text-base inline m-t-xs">{{ n }}</span>
-                                <input type="hidden" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="slip_no" class="col-lg-5 control-label inline">
-                                연차수당
-                            </label>
-                            <div class="col-lg-7">
-                                <span class="text-base inline m-t-xs">{{ n }}</span>
-                                <input type="hidden" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="slip_no" class="col-lg-5 control-label inline">
-                                출산보육수당
-                            </label>
-                            <div class="col-lg-7">
-                                <span class="text-base inline m-t-xs">{{ n }}</span>
-                                <input type="hidden" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="slip_no" class="col-lg-5 control-label inline">
-                                부양가족수당
-                            </label>
-                            <div class="col-lg-7">
-                                <span class="text-base inline m-t-xs">{{ n }}</span>
-                                <input type="hidden" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="slip_no" class="col-lg-5 control-label inline">
-                                차량유지비
-                            </label>
-                            <div class="col-lg-7">
-                                <span class="text-base inline m-t-xs">{{ n }}</span>
-                                <input type="hidden" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="slip_no" class="col-lg-5 control-label inline">
-                                전표번호
-                            </label>
-                            <div class="col-lg-7">
-                                <span class="text-base inline m-t-xs">{{ n }}</span>
-                                <input type="hidden" />
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="" class="col-lg-5 control-label inline">
-                                비과세
-                            </label>
-                            <label for="" class="col-lg-5 control-label inline">
-                                순서
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="" class="col-lg-5 control-label inline">
-                                전액과세
-                            </label>
-                            <div class="col-lg-5">
-                                <span class="text-base inline m-t-xs">{{ n }}</span>
-                                <input type="hidden" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="" class="col-lg-5 control-label inline">
-                                생산직근로자 시간외수당
-                            </label>
-                            <div class="col-lg-5">
-                                <span class="text-base inline m-t-xs">{{ n }}</span>
-                                <input type="hidden" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="" class="col-lg-5 control-label inline">
-                                전액과세
-                            </label>
-                            <div class="col-lg-5">
-                                <span class="text-base inline m-t-xs">{{ n }}</span>
-                                <input type="hidden" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label for="" class="col-lg-5 control-label inline">
-                                전액과세
-                            </label>
-                            <div class="col-lg-5">
-                                <span class="text-base inline m-t-xs">{{ n }}</span>
-                                <input type="hidden" />
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </form>
-        </div>
+        <ngx-datatable [style.height.px]=gridHeight class="bootstrap" [columnMode]="'force'" [headerHeight]="30"
+            [rowHeight]="30" [scrollbarV]="true" [scrollbarH]="false" [selectionType]="'checkbox'" [messages]="messages"
+            (select)="onSelect($event)">
+            <ngx-datatable-column prop="id" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+                [resizeable]="false" headerClass="checkAll" cellClass="text-center">
+                <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
+                    let-selectFn="selectFn">
+                    <label class="i-checks i-checks-sm m-b-none">
+                        <input type="checkbox" [checked]="allRowsSelected"
+                            (change)="selectFn(!allRowsSelected)" /><i></i>
+                    </label>
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
+                    let-onCheckboxChangeFn="onCheckboxChangeFn">
+                    <label class="i-checks i-checks-sm m-b-none">
+                        <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" /><i></i>
+                    </label>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="" name="No" [width]="1" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+            <ngx-datatable-column prop="" name="수당명" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+            <ngx-datatable-column prop="" name="수당코드" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+            <ngx-datatable-column prop="" name="비과세" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+            <ngx-datatable-column prop="" name="순서" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+        </ngx-datatable>
     </div>
 
 
     <div class="panel-footer text-right">
 
-        <button (click)="openModal('write')" cd class="btn btn-sm btn-primary btn-addon">
+        <button (click)="openModal('write','')" cd class="btn btn-sm btn-primary btn-addon">
             <i class="glyphicon glyphicon-plus"></i>등록
         </button>
         <a href="" class="btn btn-sm btn-info btn-addon"><i class="glyphicon glyphicon-print"></i>인쇄</a>
@@ -283,12 +75,12 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <label for="passenger_name" class="col-lg-2 control-label">
+                            <label for="year" class="col-lg-2 control-label">
                                 연도
                             </label>
                             <div class="col-lg-4">
-                                <select id="year" class="form-control w-sm">
-                                    <option value="111">전체</option>
+                                <select formControlName="year" id="year" class="form-control w-sm">
+                                    <option value="99">전체</option>
                                     <option value="2018">2018</option>
                                     <option value="2019">2019</option>
                                     <option value="2020">2020</option>
@@ -300,11 +92,11 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <label for="passenger_name" class="col-lg-2 control-label">
+                            <label for="benefit_code" class="col-lg-2 control-label">
                                 수당코드
                             </label>
                             <div class="col-lg-4">
-                                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                                <input type="text" formControlName="benefit_code" id="benefit_code" value=""
                                     class="form-control inline w-sm" />
                             </div>
                         </div>
@@ -312,11 +104,11 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <label for="passenger_name" class="col-lg-2 control-label">
+                            <label for="benefit_name" class="col-lg-2 control-label">
                                 수당명
                             </label>
                             <div class="col-lg-4">
-                                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                                <input type="text" formControlName="benefit_name" id="benefit_name" value=""
                                     class="form-control inline w-sm" />
                             </div>
                         </div>
@@ -324,11 +116,11 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <label for="passenger_name" class="col-lg-2 control-label">
+                            <label for="order" class="col-lg-2 control-label">
                                 표시순서
                             </label>
                             <div class="col-lg-4">
-                                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                                <input type="text" formControlName="order" id="passenger_phone" value=""
                                     class="form-control inline w-3x" />
                             </div>
                         </div>
@@ -336,11 +128,11 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <label for="passenger_name" class="col-lg-2 control-label">
+                            <label for="tax_free_name" class="col-lg-2 control-label">
                                 비과세
                             </label>
                             <div class="col-lg-4">
-                                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                                <input type="text" formControlName="tax_free_name" id="passenger_phone" value=""
                                     class="form-control inline w-sm" />
                             </div>
                         </div>
