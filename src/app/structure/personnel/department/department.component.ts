@@ -15,6 +15,8 @@ export class DepartmentComponent implements OnInit {
   panelTitle: string;
   inputFormTitle: string;
 
+  rows=[];
+
   messages = this.globals.datatableMessages;
 
   @ViewChild('InputFormModal') inputFormModal: ModalDirective;

@@ -14,6 +14,8 @@ export class EmployeeComponent implements OnInit {
   inputFormTitle: string;
   searchForm: FormGroup;
   inputForm: FormGroup;
+
+  rows=[];
   
   messages = this.globals.datatableMessages;
 
@@ -68,7 +70,6 @@ export class EmployeeComponent implements OnInit {
     // if (this.isExecutable == true) {
         if (method == 'write') {
             this.inputFormModal.show();
-            console.log("in");
         }
     // } else {
         // alert(this.globals.isNotExecutable);

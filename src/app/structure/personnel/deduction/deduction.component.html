@@ -1,3 +1,181 @@
-<p>
-  Deduction works!
-</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="text-center">
+        <span class="h4 block m-b-sm"> {{ panelTitle }} </span>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+        </div>
+        <div class="col-sm-6 text-right">
+          <button (click)="openModal('upload','')" class="btn btn-sm btn-success btn-addon">
+            <i class="glyphicon glyphicon-upload"></i>엑셀업로드
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="panel-body input-form">
+      <ngx-datatable [style.height.px]=gridHeight class="bootstrap" [rows]="rows" [columnMode]="'force'" [headerHeight]="30"
+        [rowHeight]="30" [scrollbarV]="true" [scrollbarH]="false" [selectionType]="'checkbox'" [messages]="messages"
+        >
+        <ngx-datatable-column prop="id" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+          [resizeable]="false" headerClass="checkAll" cellClass="text-center">
+          <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
+            let-selectFn="selectFn">
+            <label class="i-checks i-checks-sm m-b-none">
+              <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" /><i></i>
+            </label>
+          </ng-template>
+          <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
+            let-onCheckboxChangeFn="onCheckboxChangeFn">
+            <label class="i-checks i-checks-sm m-b-none">
+              <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" /><i></i>
+            </label>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="" name="No" [width]="1" [resizeable]="false" cellClass="text-center">
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="" name="수당명" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+        <ngx-datatable-column prop="" name="계정코드" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+        <ngx-datatable-column prop="" name="계산식" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+        <ngx-datatable-column prop="" name="순서" [width]="1" [resizeable]="false" cellClass="text-center">
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="" name="비고" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  
+  
+    <div class="panel-footer text-right">
+  
+      <button (click)="openModal('write','')" cd class="btn btn-sm btn-primary btn-addon">
+        <i class="glyphicon glyphicon-plus"></i>등록
+      </button>
+      <a href="" class="btn btn-sm btn-info btn-addon"><i class="glyphicon glyphicon-print"></i>인쇄</a>
+      <a href="" class="btn btn-sm btn-success btn-addon"><i class="glyphicon glyphicon-download-alt"></i>엑셀</a>
+  
+    </div>
+  
+  </div>
+  
+  <!-- 공제항목등록 -->
+  <div bsModal #InputFormModal="bs-modal" id="input-form" class="modal fade" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <form [formGroup]="inputForm">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="InputFormModal.hide()"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">{{ inputFormTitle }}</h4>
+          </div>
+  
+          <div class="modal-body">
+            <input type="hidden" id="reservation_id" name="reservation_id" />
+            <input type="hidden" id="goods_name" name="goods_name" />
+            <input type="hidden" id="fare_per_person" name="fare_per_person" />
+  
+            <div class="form-group">
+              <div class="row">
+                <label for="year" class="col-lg-2 control-label">
+                  연도
+                </label>
+                <div class="col-lg-5">
+                  <select formControlName="year" id="year" class="form-control w-sm">
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <div class="row">
+                <label for="benefit_name" class="col-lg-2 control-label">
+                  수당명
+                </label>
+                <div class="col-lg-5">
+                  <input type="text" formControlName="benefit_name" id="benefit_name"
+                    class="form-control inline w-sm" />
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <div class="row">
+                <label for="none" class="col-lg-2 control-label">
+                  계정코드
+                </label>
+                <div class="col-lg-5">
+                  <input type="text" formControlName="none" id="none"
+                    class="form-control inline w-sm" />
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <div class="row">
+                <label for="none" class="col-lg-2 control-label">
+                  계산식
+                </label>
+                <div class="col-lg-5">
+                  <div class="col-sm-offset-0" style="float: left">
+                    <select formControlName="none" id="none" class="form-control w-s">
+                      <option value="원">원</option>
+                      <option value="십원">십원</option>
+                      <option value="소수점1">소수점1</option>
+                      <option value="소수점2">소수점2</option>
+                    </select>
+                  </div>
+                  <label style="float: left">&nbsp;&nbsp;&nbsp;</label>
+                  <div class="col-sm-offset-0">
+                    <select formControlName="none" id="none" class="form-control w-s">
+                      <option value="반올림">반올림</option>
+                      <option value="절상">절상</option>
+                      <option value="절사">절사</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <div class="row">
+                <label for="order" class="col-lg-2 control-label">
+                  표시순서
+                </label>
+                <div class="col-lg-5">
+                  <input type="text" formControlName="order" id="order"
+                    class="form-control inline w-3x" />
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <div class="row">
+                <label for="none" class="col-lg-2 control-label">
+                  비고
+                </label>
+                <div class="col-lg-5">
+                  <input type="text" formControlName="none" id="none"
+                    class="form-control inline w-lg" />
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="modal-footer">
+            <div class="text-center">
+              <button type="button" (click)="Save()" [disabled]="!inputForm.valid"
+                class="btn btn-primary btn-save">완료</button>
+              <button type="button" (click)="InputFormModal.hide()" class="btn btn-primary btn-cancel">취소</button>
+            </div>
+          </div>
+        </form>
+      </div>
+  
+  
+    </div>
+  
+  </div>

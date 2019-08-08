@@ -21,6 +21,8 @@ export class SalaryComponent implements OnInit {
   isExecutable: boolean = false;
   isEditMode: boolean = false;
 
+  rows=[];
+
   messages = this.globals.datatableMessages;
 
   addOkMsg = "등록이 안료되었습니다.";

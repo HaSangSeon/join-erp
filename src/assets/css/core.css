@@ -5006,12 +5006,20 @@ a.text-#000000:hover {
     width: 4em;
 }
 
+.w-5x {
+    width: 5em;
+}
+
 .w-xxs {
     width: 60px;
 }
 
 .w-xs {
     width: 90px;
+}
+
+.w-s {
+    width: 100px;
 }
 
 .w-sm {

@@ -103,7 +103,6 @@ export class ElectronService {
             console.log(result);
         });
 
-        // console.log(printData);
         ipcRenderer.send('request-mainprocess-action', printData);
     }
 
