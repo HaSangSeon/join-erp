@@ -21,12 +21,14 @@ export class SalaryComponent implements OnInit {
 
   isExecutable: boolean = false;
   isEditMode: boolean = false;
+  isLoadingProgress: boolean = false;
 
   rows=[];
   temp=[];
   listData: Item[];
 
   messages = this.globals.datatableMessages;
+  gridHeight = this.globals.gridHeight;
 
   addOkMsg = "등록이 안료되었습니다.";
   editOkMsg = "수정이 완료 되었습니다.";
@@ -62,11 +64,14 @@ export class SalaryComponent implements OnInit {
     let formData = this.inputForm.value;
     let params = {
     }
+    this.isLoadingProgress = true;
     this.dataService.GetAll(params).subscribe(
       listData => {
         this.listData = listData;
         this.temp = listData['data'];
         this.rows = listData['data'];
+
+        this.isLoadingProgress = false;
       }
     )
   }

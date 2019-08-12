@@ -18,8 +18,10 @@ export class EmployeeComponent implements OnInit {
   rows=[];
   
   messages = this.globals.datatableMessages;
+  gridHeight = this.globals.gridHeight;
 
   isExecutable: boolean = false;
+  isLoadingProgress: boolean = false;
 
   @ViewChild('InputFormModal') inputFormModal: ModalDirective;
 

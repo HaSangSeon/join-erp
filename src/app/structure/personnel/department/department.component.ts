@@ -15,9 +15,12 @@ export class DepartmentComponent implements OnInit {
   panelTitle: string;
   inputFormTitle: string;
 
+  isLoadingProgress: boolean = false;
+
   rows=[];
 
   messages = this.globals.datatableMessages;
+  gridHeight = this.globals.gridHeight;
 
   @ViewChild('InputFormModal') inputFormModal: ModalDirective;
 
