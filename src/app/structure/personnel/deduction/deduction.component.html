@@ -34,13 +34,13 @@
           </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="No" [width]="1" [resizeable]="false" cellClass="text-center">
-          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex">{{rowIndex+1}}</ng-template>
+          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"><span>{{rowIndex+1}}</span></ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column prop="deduction_code" name="수당명" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
         <ngx-datatable-column prop="acct_code" name="계정코드" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
         <ngx-datatable-column name="계산식" [resizeable]="false" cellClass="text-center">
           <ng-template ngx-datatable-cell-template let-row="row">
-            <div style="text-align: center">{{ row.calculation_method.slice(0,1) + " / " +  row.calculation_method.slice(2,3) }}</div>
+            <span>{{ row.calculation_method.slice(0,1) + " / " +  row.calculation_method.slice(2,3) }}</span>
           </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column prop="entry_seq" name="순서" [width]="1" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>

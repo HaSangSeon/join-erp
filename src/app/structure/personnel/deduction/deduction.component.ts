@@ -102,7 +102,10 @@ export class DeductionComponent implements OnInit {
   }
 
   Save() {
+    this.inputForm.value.calculation_method = this.inputForm.value.calculation_method1 + "," + this.inputForm.value.calculation_method2;
     let formData = this.inputForm.value;
+    console.log("data:")
+    console.log(formData.calculation_method)
 
     this.Create(formData);
 
@@ -117,7 +120,7 @@ export class DeductionComponent implements OnInit {
             this.inputForm.reset();
             this.messageService.add(this.addOkMsg);
           } else {
-            this.messageService.add(data['errorMessage'])
+            this.messageService.add(data['errorMessage']);
           }
           this.inputFormModal.hide();
         },
