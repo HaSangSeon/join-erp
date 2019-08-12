@@ -19,6 +19,10 @@ export class SalaryService {
 
 private url = this.globals.serverUrl + '/salary/benefit';
 
+GetAll (params): Observable<Item[]> {
+  return this.http.get<Item[]>(this.url, {params: params});
+}
+
 //======= 저장 =======//
 /** POST: 데이터 추가 */
 Create (data:Item): Observable<Item> {
