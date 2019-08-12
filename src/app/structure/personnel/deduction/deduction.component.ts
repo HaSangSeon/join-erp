@@ -4,7 +4,8 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { MessageService } from '../../../message.service';
 import { AppGlobals } from '../../../app.globals';
 import { ActivatedRoute } from '@angular/router';
-import { SalaryService } from '../salary/salary.service';
+import { Item } from './deduction.item';
+import { DeductionService } from './deduction.service';
 
 @Component({
   selector: 'app-deduction',
@@ -19,10 +20,16 @@ export class DeductionComponent implements OnInit {
   inputFormTitle: string;
   errorMessage: string;
 
+  listData: Item[];
+  temp=[];
+  rows=[];
+
   isExecutable: boolean = false;
   isEditMode: boolean = false;
+  isLoadingProgress: boolean = false;
 
   messages = this.globals.datatableMessages;
+  gridHeight = this.globals.gridHeight;
 
   addOkMsg = "등록이 안료되었습니다.";
   editOkMsg = "수정이 완료 되었습니다.";
@@ -34,24 +41,20 @@ export class DeductionComponent implements OnInit {
     private messageService: MessageService,
     private globals: AppGlobals,
     private route: ActivatedRoute,
-    private dataService: SalaryService
+    private dataService: DeductionService
   ) {
 
-    this.inputForm = fb.group({
-      sch_partner_name: '',
-      sch_sdate: '',
-      sch_edate: ''
-    });
 
     this.inputForm = fb.group({
-      benefit_code: ['', Validators.required],
+      deduction_code: ['', Validators.required],
       year: ['', Validators.required],
-      benefit_name: ['', Validators.required],
-      order: ['', Validators.required],
-      tax_free_name: ['', Validators.required],
+      acct_code: ['', Validators.required],
+      calculation_method1: ['', Validators.required],
+      calculation_method2: ['', Validators.required],
+      calculation_method: '',
+      entry_seq: ['', Validators.required],
+      etc: ['', Validators.required],
       createdAt: '',
-      // 임시
-      none:''
     });
 
   }
@@ -59,7 +62,27 @@ export class DeductionComponent implements OnInit {
   ngOnInit() {
     this.panelTitle = '공제정보'
     this.inputFormTitle = "공제항목등록"
+    this.getAll()
   }
+
+  getAll(): void {
+    let formData = this.inputForm.value;
+    let params = {
+    }
+    this.isLoadingProgress = true;
+    this.dataService.GetAll(params).subscribe(
+      listData => {
+        this.listData = listData;
+        this.temp = listData['data'];
+        this.rows = listData['data'];
+
+        console.log("data:");
+        console.log(this.temp['calculation_method']);
+        this.isLoadingProgress = false;
+      }
+    )
+  }
+
 
   openModal(method, id) {
 

@@ -21,10 +21,12 @@ export class PayStepComponent implements OnInit {
 
   isExecutable: boolean = false;
   isEditMode: boolean = false;
+  isLoadingProgress: boolean = false;
 
   rows=[];
 
   messages = this.globals.datatableMessages;
+  gridHeight = this.globals.gridHeight;
 
   constructor(
     @Inject(FormBuilder) fb: FormBuilder,
