@@ -25,6 +25,7 @@
     <ngx-datatable
     [style.height.px] = gridHeight
     class="bootstrap"
+    [rows]="rows"
     [columnMode]="'force'"
     [headerHeight]="30"
     [rowHeight]="30"
@@ -32,7 +33,7 @@
     [scrollbarH]="false"
     [selectionType]="'checkbox'"
     [messages]="messages"
-    (select)="onSelect($event)">
+    >
             <ngx-datatable-column prop="id" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false" headerClass="checkAll" cellClass="text-center">
                 <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
                     <label class="i-checks i-checks-sm m-b-none">

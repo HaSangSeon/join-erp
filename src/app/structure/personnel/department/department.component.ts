@@ -15,6 +15,8 @@ export class DepartmentComponent implements OnInit {
   panelTitle: string;
   inputFormTitle: string;
 
+  rows=[];
+
   messages = this.globals.datatableMessages;
 
   @ViewChild('InputFormModal') inputFormModal: ModalDirective;
@@ -53,7 +55,6 @@ export class DepartmentComponent implements OnInit {
     // if (this.isExecutable == true) {
         if (method == 'write') {
             this.inputFormModal.show();
-            console.log("in");
         }
     // } else {
         // alert(this.globals.isNotExecutable);

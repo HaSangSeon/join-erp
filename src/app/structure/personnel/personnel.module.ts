@@ -17,13 +17,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { SharedModule } from '../shared/shared.module';
+import { PayStepComponent } from './pay-step/pay-step.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'personnel/salary', pathMatch: 'full'},
+  { path: '', redirectTo: 'personnel/deduction', pathMatch: 'full'},
   { path: 'personnel/employee', component: EmployeeComponent, data: { title: '환경설정 > 기본사항 > 사원등록', id:111 } },
   { path: 'personnel/department', component: DepartmentComponent, data: { title: '환경설정 > 기본사항 > 부서등록', id:112 } },
   { path: 'personnel/salary', component: SalaryComponent, data: { title: '환경설정 > 기본사항 > 수당항목등록', id:113 } },
-  { path: 'personnel/deduction', component: DeductionComponent, data: { title: '환경설정 > 기본사항 > 호봉제임금테이블', id:114 } },
+  { path: 'personnel/deduction', component: DeductionComponent, data: { title: '환경설정 > 기본사항 > 공제항목등록', id:114 } },
+  { path: 'personnel/pay-step', component: PayStepComponent, data: { title: '환경설정 > 기본사항 > 호봉제임금테이블', id:115 } },
 ];
 
 defineLocale('ko', koLocale);
@@ -52,11 +54,12 @@ export function getDatepickerConfig(): BsDatepickerConfig{
   ],
   exports:[
   ],
-  declarations: [
+    declarations: [
     EmployeeComponent,
     DepartmentComponent,
     SalaryComponent,
-    DeductionComponent
+    DeductionComponent,
+    PayStepComponent 
   ],
   providers:[
     {provide: BsDatepickerConfig, useFactory: getDatepickerConfig}

@@ -20,17 +20,17 @@
   </div>
 
   <div class="panel-body">
-    <ngx-datatable [style.height.px]=gridHeight class="bootstrap" [columnMode]="'force'" [headerHeight]="30"
-    [rowHeight]="30" [scrollbarV]="true" [scrollbarH]="false" [selectionType]="'checkbox'"
-    [messages]="messages" (select)="onSelect($event)">
-    <ngx-datatable-column prop="id" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false"
-    [resizeable]="false" headerClass="checkAll" cellClass="text-center">
-    <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
-    let-selectFn="selectFn">
-    <label class="i-checks i-checks-sm m-b-none">
-      <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" /><i></i>
-    </label>
-  </ng-template>
+    <ngx-datatable [style.height.px]=gridHeight class="bootstrap" [rows]="rows" [columnMode]="'force'" [headerHeight]="30"
+      [rowHeight]="30" [scrollbarV]="true" [scrollbarH]="false" [selectionType]="'checkbox'" [messages]="messages"
+      >
+      <ngx-datatable-column prop="id" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+        [resizeable]="false" headerClass="checkAll" cellClass="text-center">
+        <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
+          let-selectFn="selectFn">
+          <label class="i-checks i-checks-sm m-b-none">
+            <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" /><i></i>
+          </label>
+        </ng-template>
         <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
           let-onCheckboxChangeFn="onCheckboxChangeFn">
           <label class="i-checks i-checks-sm m-b-none">
@@ -110,14 +110,14 @@
                 주민등록번호
               </label>
               <div class="col-lg-4">
-                  <div class="col-sm-offset-0" style="float: left">
-                    <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-xs" />
-                  </div>
-                  <label style="float: left">&nbsp;-&nbsp;</label>
-                  <div class="col-sm-offset-0" style="float: left">
-                    <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-xs" />
-                  </div>
+                <div class="col-sm-offset-0" style="float: left">
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-xs" />
                 </div>
+                <label style="float: left">&nbsp;-&nbsp;</label>
+                <div class="col-sm-offset-0" style="float: left">
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-xs" />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -310,8 +310,8 @@
               </label>
               <div class="col-lg-4">
                 <div class="col-sm-offset-0">
-                  <button type="button" (click)="Save()" [disabled]="!inputForm.valid"
-                  class="btn btn-default btn-save" style="float: left">파일선택</button>
+                  <button type="button" (click)="Save()" [disabled]="!inputForm.valid" class="btn btn-default btn-save"
+                    style="float: left">파일선택</button>
                   <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-lg" />
                 </div>
               </div>
@@ -325,9 +325,9 @@
               </label>
               <div class="col-lg-4">
                 <div class="col-sm-offset-0">
-                    <button type="button" (click)="Save()" [disabled]="!inputForm.valid"
-                    class="btn btn-default btn-save" style="float: left">파일선택</button>
-                    <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-lg" />
+                  <button type="button" (click)="Save()" [disabled]="!inputForm.valid" class="btn btn-default btn-save"
+                    style="float: left">파일선택</button>
+                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-lg" />
                 </div>
               </div>
             </div>

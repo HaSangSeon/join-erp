@@ -22,8 +22,6 @@ export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean {
         if (sessionStorage.getItem('currentUser') && this.globals.userPermission !== null) {
             let user = JSON.parse(sessionStorage.getItem('currentUser'));
-            // console.log(user.user_id);
-            // console.log(route.routeConfig.path);
             this.globals.userId = user.user_id;
             this.globals.userName = user.user_name;
             this.globals.userPosition = user.position_name;
@@ -31,7 +29,6 @@ export class AuthGuard implements CanActivate {
             // 접근권한 체크
             if (route.routeConfig.path && ("id" in route.routeConfig.data) ) {
                 if (route.routeConfig.data.id in this.globals.userPermission) {
-                    console.log(route.routeConfig.data.id);
                     if (this.globals.userPermission[route.routeConfig.data.id]['access_auth'] == false
                         && this.globals.userPermission[route.routeConfig.data.id]['executive_auth'] == false) {
                         alert('접근권한이 없습니다.');

@@ -8,7 +8,6 @@ export class DecimalMask {
     constructor(private el: ElementRef, public model: NgControl) {}
 
     @HostListener('input',['$event']) onEvent($event){
-        //console.log("keypress: " + $event.keypress);
         var valArray = this.el.nativeElement.value.split('.');
         for(var i = 0; i < valArray.length; ++i) {
             valArray[i] = valArray[i].replace(/\D/g, '');
@@ -34,8 +33,6 @@ export class DecimalMask {
                 newVal += "." + valArray[1].substring(0,2);
             }
         }
-        //console.log(this.model);
-        //console.log(newVal);
         // set the new value
         this.model.control.setValue(newVal);
         //this.model.valueAccessor.writeValue(newVal);

@@ -15,9 +15,9 @@
     </div>
 
     <div class="panel-body input-form">
-        <ngx-datatable [style.height.px]=gridHeight class="bootstrap" [columnMode]="'force'" [headerHeight]="30"
+        <ngx-datatable [style.height.px]=gridHeight class="bootstrap" [rows]="rows" [columnMode]="'force'" [headerHeight]="30"
             [rowHeight]="30" [scrollbarV]="true" [scrollbarH]="false" [selectionType]="'checkbox'" [messages]="messages"
-            (select)="onSelect($event)">
+            >
             <ngx-datatable-column prop="id" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false"
                 [resizeable]="false" headerClass="checkAll" cellClass="text-center">
                 <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
@@ -38,7 +38,7 @@
             <ngx-datatable-column prop="" name="수당명" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
             <ngx-datatable-column prop="" name="수당코드" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
             <ngx-datatable-column prop="" name="비과세" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-            <ngx-datatable-column prop="" name="순서" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+            <ngx-datatable-column prop="" name="순서" [width]="1" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
         </ngx-datatable>
     </div>
 
@@ -80,7 +80,6 @@
                             </label>
                             <div class="col-lg-4">
                                 <select formControlName="year" id="year" class="form-control w-sm">
-                                    <option value="99">전체</option>
                                     <option value="2018">2018</option>
                                     <option value="2019">2019</option>
                                     <option value="2020">2020</option>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from '../../../message.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AppGlobals } from '../../../app.globals';
@@ -20,7 +20,9 @@ export class SalaryComponent implements OnInit {
 
   isExecutable: boolean = false;
   isEditMode: boolean = false;
-  
+
+  rows=[];
+
   messages = this.globals.datatableMessages;
 
   addOkMsg = "등록이 안료되었습니다.";
@@ -36,20 +38,20 @@ export class SalaryComponent implements OnInit {
     private dataService: SalaryService
   ) {
 
-      this.inputForm = fb.group({
-        sch_partner_name: '',
-        sch_sdate: '',
-        sch_edate: ''
-      });
+    this.inputForm = fb.group({
+      sch_partner_name: '',
+      sch_sdate: '',
+      sch_edate: ''
+    });
 
-      this.inputForm = fb.group({
-        benefit_code: '',
-        year: '',
-        benefit_name: '',
-        order: '',
-        tax_free_name: '',
-        createdAt: '',
-      });
+    this.inputForm = fb.group({
+      benefit_code: ['', Validators.required],
+      year: ['', Validators.required],
+      benefit_name: ['', Validators.required],
+      order: ['', Validators.required],
+      tax_free_name: ['', Validators.required],
+      createdAt: '',
+    });
 
   }
 
@@ -62,7 +64,6 @@ export class SalaryComponent implements OnInit {
 
     if (method == 'write') {
       this.inputFormModal.show();
-      console.log("in");
     }
 
     if (method == 'write') {
@@ -79,33 +80,25 @@ export class SalaryComponent implements OnInit {
   Save() {
     let formData = this.inputForm.value;
 
-    if (!formData.benefit_code && !formData.year && !formData.benefit_name && !formData.order && !formData.tax_free_name) {
-      alert('등록 정보를 확인하세요');
-      return false;
-    }else{
-      this.Create(formData);
-    }
+    this.Create(formData);
 
   }
 
-  Create(data): void{
+  Create(data): void {
     this.dataService.Create(data)
-    .subscribe(
-      data=>{
-        console.log("data>>")
-        console.log(data);
+      .subscribe(
+        data => {
 
-        if(data['result']=='success'){
-          console.log(data['result']+"++")
-          this.inputForm.reset();
-          this.messageService.add(this.addOkMsg);
-        }else{
-          this.messageService.add(data['errorMessage'])
-        }
-        this.inputFormModal.hide();
-      },
-      error => this.errorMessage = <any>error
-      
-    )
+          if (data['result'] == 'success') {
+            this.inputForm.reset();
+            this.messageService.add(this.addOkMsg);
+          } else {
+            this.messageService.add(data['errorMessage'])
+          }
+          this.inputFormModal.hide();
+        },
+        error => this.errorMessage = <any>error
+
+      )
   }
 }
