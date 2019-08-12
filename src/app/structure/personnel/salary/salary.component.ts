@@ -5,6 +5,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AppGlobals } from '../../../app.globals';
 import { ActivatedRoute } from '@angular/router';
 import { SalaryService } from './salary.service';
+import { Item } from './salary.item';
 
 @Component({
   selector: 'app-salary',
@@ -22,6 +23,8 @@ export class SalaryComponent implements OnInit {
   isEditMode: boolean = false;
 
   rows=[];
+  temp=[];
+  listData: Item[];
 
   messages = this.globals.datatableMessages;
 
@@ -39,16 +42,10 @@ export class SalaryComponent implements OnInit {
   ) {
 
     this.inputForm = fb.group({
-      sch_partner_name: '',
-      sch_sdate: '',
-      sch_edate: ''
-    });
-
-    this.inputForm = fb.group({
       benefit_code: ['', Validators.required],
       year: ['', Validators.required],
       benefit_name: ['', Validators.required],
-      order: ['', Validators.required],
+      entry_seq: ['', Validators.required],
       tax_free_name: ['', Validators.required],
       createdAt: '',
     });
@@ -58,6 +55,20 @@ export class SalaryComponent implements OnInit {
   ngOnInit() {
     this.panelTitle = '수당정보'
     this.inputFormTitle = "수당항목등록"
+    this.getAll()
+  }
+
+  getAll(): void {
+    let formData = this.inputForm.value;
+    let params = {
+    }
+    this.dataService.GetAll(params).subscribe(
+      listData => {
+        this.listData = listData;
+        this.temp = listData['data'];
+        this.rows = listData['data'];
+      }
+    )
   }
 
   openModal(method, id) {
