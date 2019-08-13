@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppGlobals } from '../../../app.globals';
 import { Item } from './deduction.item';
 import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
+import { AppGlobals } from '../../../../app.globals';
 
 const httpOptions={}
 

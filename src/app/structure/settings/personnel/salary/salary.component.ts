@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessageService } from '../../../message.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { AppGlobals } from '../../../app.globals';
 import { ActivatedRoute } from '@angular/router';
 import { SalaryService } from './salary.service';
 import { Item } from './salary.item';
+import { MessageService } from '../../../../message.service';
+import { AppGlobals } from '../../../../app.globals';
 
 @Component({
   selector: 'app-salary',

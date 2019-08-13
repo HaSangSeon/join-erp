@@ -14,12 +14,12 @@ const routes: Routes = [
         // canActivate: [AuthGuard],
         children: [
             {
-                path: '11',
+                path: '',
                 loadChildren: './structure/dashboard/dashboard.module#DashboardModule'
             },
             {
-                path: '',
-                loadChildren: './structure/personnel/personnel.module#PersonnelModule'
+                path: 'settings',
+                loadChildren: './structure/settings/personnel/settings.module#PersonnelModule'
             }
         ]
     },

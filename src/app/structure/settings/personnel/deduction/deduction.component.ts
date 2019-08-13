@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { MessageService } from '../../../message.service';
-import { AppGlobals } from '../../../app.globals';
 import { ActivatedRoute } from '@angular/router';
 import { Item } from './deduction.item';
 import { DeductionService } from './deduction.service';
 import { stringify } from '@angular/core/src/util';
 import { P } from '@angular/core/src/render3';
+import { MessageService } from '../../../../message.service';
+import { AppGlobals } from '../../../../app.globals';
 
 @Component({
   selector: 'app-deduction',
@@ -85,16 +85,14 @@ export class DeductionComponent implements OnInit {
     let formData = this.inputForm.value;
     let params = {
     }
-    // this.isLoadingProgress = true;
+    this.isLoadingProgress = true;
     this.dataService.GetAll(params).subscribe(
       listData => {
         this.listData = listData;
         this.temp = listData['data'];
         this.rows = listData['data'];
 
-        console.log("data:");
-        console.log(this.temp['calculation_method']);
-        // this.isLoadingProgress = false;
+        this.isLoadingProgress = false;
       }
     )
   }
@@ -120,8 +118,6 @@ export class DeductionComponent implements OnInit {
   Save() {
     this.inputForm.value.calculation_method = this.inputForm.value.calculation_method1 + "," + this.inputForm.value.calculation_method2;
     let formData = this.inputForm.value;
-    console.log("data:")
-    console.log(formData.calculation_method)
 
     this.Create(formData);
 

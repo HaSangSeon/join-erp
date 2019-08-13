@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { MessageService } from '../../../message.service';
-import { AppGlobals } from '../../../app.globals';
 import { ActivatedRoute } from '@angular/router';
 import { SalaryService } from '../salary/salary.service';
+import { MessageService } from '../../../../message.service';
+import { AppGlobals } from '../../../../app.globals';
 
 @Component({
   selector: 'app-pay-step',

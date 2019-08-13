@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { MessageService } from '../../../message.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { AppGlobals } from '../../../app.globals';
+import { MessageService } from '../../../../message.service';
+import { AppGlobals } from '../../../../app.globals';
 
 @Component({
   selector: 'app-department',
