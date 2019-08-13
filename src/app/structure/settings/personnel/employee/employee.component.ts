@@ -11,12 +11,14 @@ import { AppGlobals } from '../../../../app.globals';
 })
 export class EmployeeComponent implements OnInit {
   panelTitle: string;
+  day: string;
+  
   inputFormTitle: string;
   searchForm: FormGroup;
   inputForm: FormGroup;
-
-  rows=[];
   
+  rows = [];
+
   messages = this.globals.datatableMessages;
   gridHeight = this.globals.gridHeight;
 
@@ -39,8 +41,8 @@ export class EmployeeComponent implements OnInit {
       drawing_no: '',
       material: '',
       production_line: '',
-      brief_summary:'',
-  });
+      brief_summary: '',
+    });
 
     this.searchForm = fb.group({
       forging_id: ['',],
@@ -56,26 +58,26 @@ export class EmployeeComponent implements OnInit {
       product_name: '',
       drawing_no: '',
       material: ''
-  });
+    });
 
-   }
+  }
 
   ngOnInit() {
-    this.panelTitle='사원정보'
+    this.panelTitle = '사원정보'
     this.inputFormTitle = '사원등록';
-  
+
 
   }
 
   openModal(method) {
     // 실행권한
     // if (this.isExecutable == true) {
-        if (method == 'write') {
-            this.inputFormModal.show();
-        }
+    if (method == 'write') {
+      this.inputFormModal.show();
+    }
     // } else {
-        // alert(this.globals.isNotExecutable);
-        // return false;
+    // alert(this.globals.isNotExecutable);
+    // return false;
     // }
 
   }

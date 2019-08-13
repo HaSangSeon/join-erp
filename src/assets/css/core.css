@@ -5010,6 +5010,10 @@ a.text-#000000:hover {
     width: 5em;
 }
 
+.w-6x {
+    width: 6em;
+}
+
 .w-xxs {
     width: 60px;
 }

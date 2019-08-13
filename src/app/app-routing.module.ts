@@ -19,7 +19,11 @@ const routes: Routes = [
             },
             {
                 path: 'settings',
-                loadChildren: './structure/settings/personnel/settings.module#PersonnelModule'
+                loadChildren: './structure/settings/personnel/settings.module#SettingsModule'
+            },
+            {
+                path: 'personnel',
+                loadChildren: './structure/personnel/personnel.module#PersonnelModule'
             }
         ]
     },

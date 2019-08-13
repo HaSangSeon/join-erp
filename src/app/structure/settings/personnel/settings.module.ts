@@ -63,4 +63,4 @@ export function getDatepickerConfig(): BsDatepickerConfig{
     {provide: BsDatepickerConfig, useFactory: getDatepickerConfig}
   ]
 })
-export class PersonnelModule { }
+export class SettingsModule { }

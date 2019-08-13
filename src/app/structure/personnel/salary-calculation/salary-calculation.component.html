@@ -1,3 +1,278 @@
-<p>
-  salary-calculation works!
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="text-center">
+      <span class="h4 block m-b-sm"> {{ panelTitle }} </span>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <form [formGroup]="searchForm">
+          <div class="col-lg-2">
+            <select id="year" class="form-control w-xs">
+              <option value="0">전체</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+          <div class="col-lg-2">
+            <select id="year" class="form-control w-xs">
+              <option value="0">전체</option>
+              <option *ngFor="let month of m_object" value="{{month}}">{{month+"월"}}</option>
+            </select>
+          </div>
+          <div class="col-lg-2">
+            <select id="year" class="form-control w-xs">
+              <option value="0">전체</option>
+              <option *ngFor="let day of d_object" value="{{day}}">{{day+"일"}}</option>
+            </select>
+          </div>
+          <div class="col-lg-2">
+            <button (click)="getAll()" class="btn btn-sm btn-default">검색</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button (click)="openModal('upload')" class="btn btn-sm btn-success btn-addon">
+          <i class="glyphicon glyphicon-upload"></i>엑셀업로드
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <ngx-datatable [style.height.px]=gridHeight class="bootstrap" [rows]="rows" [columnMode]="'force'"
+      [headerHeight]="30" [rowHeight]="30" [scrollbarV]="true" [scrollbarH]="false" [selectionType]="'checkbox'"
+      [messages]="messages">
+      <ngx-datatable-column prop="" name="No" [width]="50" [canAutoResize]="false" [resizeable]="false"
+        cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="사원명" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="부서" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="직급" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="지급총액" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="기본급" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="야근수당" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="상여" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="국민연금" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="건강보험" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="장기요양" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="고용보험" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="소득세" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="주민세" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="공제합계" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="차인지급액" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="계산" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="수정·삭제" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+
+
+  <div class="panel-footer text-right">
+
+    <button (click)="openModal('write')" class="btn btn-sm btn-primary btn-addon">
+      <i class="glyphicon glyphicon-plus"></i>등록
+    </button>
+    <a href="" class="btn btn-sm btn-info btn-addon"><i class="glyphicon glyphicon-print"></i>인쇄</a>
+    <a href="" class="btn btn-sm btn-success btn-addon"><i class="glyphicon glyphicon-download-alt"></i>엑셀</a>
+
+  </div>
+
+</div>
+
+<!-- 급여계산등록 -->
+<div bsModal #InputFormModal="bs-modal" id="input-form" class="modal fade" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content ">
+
+      <form [formGroup]="inputForm">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="InputFormModal.hide()"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">{{ inputFormTitle }}</h4>
+        </div>
+
+        <div class="modal-body">
+          <input type="hidden" id="reservation_id" name="reservation_id" />
+          <input type="hidden" id="goods_name" name="goods_name" />
+          <input type="hidden" id="fare_per_person" name="fare_per_person" />
+
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_name" class="col-lg-2 control-label">
+                귀속연월
+              </label>
+              <label for="passenger_name" class="col-lg-4 control-label">
+                n
+              </label>
+
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                사원명
+              </label>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                n
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_name" class="col-lg-2 control-label">
+                기본급
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-sm"
+                  style="float: left" />
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                소득세
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                  class="form-control inline w-sm" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_name" class="col-lg-2 control-label">
+                야근수당
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-sm"
+                  style="float: left" />
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                주민세
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                  class="form-control inline w-sm" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_name" class="col-lg-2 control-label">
+                식대
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-sm"
+                  style="float: left" />
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                국민연금
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                  class="form-control inline w-sm" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_name" class="col-lg-2 control-label">
+                차량유지비
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-sm"
+                  style="float: left" />
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                건강보험
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                  class="form-control inline w-sm" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_name" class="col-lg-2 control-label">
+                상여
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-sm"
+                  style="float: left" />
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                장기요양
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                  class="form-control inline w-sm" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_name" class="col-lg-2 control-label">
+                연말정산
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-sm"
+                  style="float: left" />
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                고용보험
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                  class="form-control inline w-sm" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <label for="passenger_name" class="col-lg-2 control-label">
+                지급총액
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-sm"
+                  style="float: left" />
+              </div>
+              <label for="passenger_phone" class="col-lg-2 control-label">
+                공제총액
+              </label>
+              <div class="col-lg-4">
+                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+                  class="form-control inline w-sm" />
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="modal-footer">
+          <div class="text-center">
+            <button type="button" (click)="Save()" [disabled]="!inputForm.valid"
+              class="btn btn-primary btn-save">완료</button>
+            <button type="button" (click)="InputFormModal.hide()" class="btn btn-primary btn-cancel">취소</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+  </div>
+
+</div>
+
+<div *ngIf="isLoadingProgress" class="loading-progress">
+
+  <div class="sk-fading-circle">
+    <div class="sk-circle1 sk-circle"></div>
+    <div class="sk-circle2 sk-circle"></div>
+    <div class="sk-circle3 sk-circle"></div>
+    <div class="sk-circle4 sk-circle"></div>
+    <div class="sk-circle5 sk-circle"></div>
+    <div class="sk-circle6 sk-circle"></div>
+    <div class="sk-circle7 sk-circle"></div>
+    <div class="sk-circle8 sk-circle"></div>
+    <div class="sk-circle9 sk-circle"></div>
+    <div class="sk-circle10 sk-circle"></div>
+    <div class="sk-circle11 sk-circle"></div>
+    <div class="sk-circle12 sk-circle"></div>
+  </div>
+
+</div>
