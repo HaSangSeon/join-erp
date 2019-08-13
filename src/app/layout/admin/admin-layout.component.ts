@@ -8,6 +8,7 @@ import { UserService } from '../../user.service';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import { p } from '@angular/core/src/render3';
 
 @Component({
     selector: 'app-layout',
@@ -60,6 +61,7 @@ export class AdminLayoutComponent implements OnInit {
             this.titleService.setTitle(event['title']);
             this.page_title = event['title'];
         });
+        
     }
 
     getActiveGroupMenu() {
