@@ -7,12 +7,13 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes=[
   { path: '', redirectTo: 'personnel/salary-registration'},
-  { path: 'personnel/salary-registration', component: SalaryRegistrationComponent, data: { titlte: }},
-  // { path: 'personnel/salary-'}
+  { path: 'personnel/salary-registration', component: SalaryRegistrationComponent, data: { titlte: '인사/급여 > 급여지급연월등록', id:1101 }},
+  { path: 'personnel/salary-calculation', component: SalaryCalculationComponent, data: { title: '인사/급여 > 급여계산', id:1102 }},
+  { path: 'personnel/payroll', component: PayrollComponent, data: { title: '인사/급여 > 급여대장', id:1103}}
   
 ]
 
-@NgModule({
+@NgModule({ 
   imports: [
     CommonModule
   ],

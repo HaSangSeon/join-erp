@@ -19,11 +19,11 @@ import { SharedModule } from '../../shared/shared.module';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'personnel/employee', pathMatch: 'full'},
-  { path: 'personnel/employee', component: EmployeeComponent, data: { title: '환경설정 > 기본사항 > 사원등록', id:111 } },
-  { path: 'personnel/department', component: DepartmentComponent, data: { title: '환경설정 > 기본사항 > 부서등록', id:112 } },
-  { path: 'personnel/salary', component: SalaryComponent, data: { title: '환경설정 > 기본사항 > 수당항목등록', id:113 } },
-  { path: 'personnel/deduction', component: DeductionComponent, data: { title: '환경설정 > 기본사항 > 공제항목등록', id:114 } },
-  { path: 'personnel/pay-step', component: PayStepComponent, data: { title: '환경설정 > 기본사항 > 호봉제임금테이블', id:115 } },
+  { path: 'personnel/employee', component: EmployeeComponent, data: { title: '환경설정 > 인사/급여 > 사원등록', id:371 } },
+  { path: 'personnel/department', component: DepartmentComponent, data: { title: '환경설정 > 인사/급여 > 부서등록', id:372 } },
+  { path: 'personnel/salary', component: SalaryComponent, data: { title: '환경설정 > 인사/급여 > 수당항목등록', id:373 } },
+  { path: 'personnel/deduction', component: DeductionComponent, data: { title: '환경설정 > 인사/급여 > 공제항목등록', id:374 } },
+  { path: 'personnel/pay-step', component: PayStepComponent, data: { title: '환경설정 > 인사/급여 > 호봉제임금테이블', id:375 } },
 ];
 
 defineLocale('ko', koLocale);
