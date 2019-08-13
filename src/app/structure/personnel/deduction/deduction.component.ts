@@ -6,6 +6,8 @@ import { AppGlobals } from '../../../app.globals';
 import { ActivatedRoute } from '@angular/router';
 import { Item } from './deduction.item';
 import { DeductionService } from './deduction.service';
+import { stringify } from '@angular/core/src/util';
+import { P } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-deduction',
@@ -23,6 +25,8 @@ export class DeductionComponent implements OnInit {
   listData: Item[];
   temp=[];
   rows=[];
+  object1: {[key: number]: string};
+  object2: {[key: number]: string};
 
   isExecutable: boolean = false;
   isEditMode: boolean = false;
@@ -33,6 +37,7 @@ export class DeductionComponent implements OnInit {
 
   addOkMsg = "등록이 안료되었습니다.";
   editOkMsg = "수정이 완료 되었습니다.";
+  
 
   @ViewChild('InputFormModal') inputFormModal: ModalDirective;
 
@@ -55,7 +60,18 @@ export class DeductionComponent implements OnInit {
       entry_seq: ['', Validators.required],
       etc: ['', Validators.required],
       createdAt: '',
+      op: ''
     });
+
+    this.object1 = {
+      1: '원', 2:'십원', 3:'소수점1', 4:'소수점2'
+    };
+    this.object2 = {
+      1: '반올림', 2:'절상', 3:'절사'
+    }
+
+
+    
 
   }
 
@@ -69,7 +85,7 @@ export class DeductionComponent implements OnInit {
     let formData = this.inputForm.value;
     let params = {
     }
-    this.isLoadingProgress = true;
+    // this.isLoadingProgress = true;
     this.dataService.GetAll(params).subscribe(
       listData => {
         this.listData = listData;
@@ -78,7 +94,7 @@ export class DeductionComponent implements OnInit {
 
         console.log("data:");
         console.log(this.temp['calculation_method']);
-        this.isLoadingProgress = false;
+        // this.isLoadingProgress = false;
       }
     )
   }

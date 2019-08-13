@@ -35,7 +35,8 @@
                     </label>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="No" [width]="1" [resizeable]="false" cellClass="text-center">
+            <ngx-datatable-column name="No" [width]="1" [width]="50" [canAutoResize]="false" [resizeable]="false"
+                cellClass="text-center">
                 <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex">
                     <div>{{ rowIndex+1 }}</div>
                 </ng-template>
@@ -46,7 +47,19 @@
             </ngx-datatable-column>
             <ngx-datatable-column prop="tax_free_name" name="비과세" [resizeable]="false" cellClass="text-center">
             </ngx-datatable-column>
-            <ngx-datatable-column prop="entry_seq" name="순서" [width]="1" [resizeable]="false" cellClass="text-center">
+            <ngx-datatable-column prop="entry_seq" name="순서" [width]="200" [canAutoResize]="false" [width]="1"
+                [resizeable]="false" cellClass="text-center">
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="op" name="수정&middot;삭제" [width]="100" [canAutoResize]="false"
+                [resizeable]="false" cellClass="text-center">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    <button (click)="openModal('write',value)" class="btn btn-xs btn-primary">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </button>
+                    <button (click)="openModal('delete',value)" class="btn btn-xs btn-danger">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                </ng-template>
             </ngx-datatable-column>
         </ngx-datatable>
     </div>
