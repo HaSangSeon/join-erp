@@ -1971,11 +1971,42 @@ body {
     bottom: 19px;
 }
 
+/* 추가 */
+.se {
+    margin-left: 40px;
+}
+
+.sum{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.btn-ngx {
+    padding: 1px; 
+    margin-top: 3px;
+    background-color: #16aad8;
+    color:white;
+    
+}
+
+.col-lg-2-c {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 17%;
+    float: left;
+}
+
+/* ** */
+
 .btn {
     font-weight: 500;
     border-radius: 2px;
     outline: 0 !important;
 }
+
+
 
 .btn-link {
     color: #58666e;
@@ -5012,6 +5043,10 @@ a.text-#000000:hover {
 
 .w-6x {
     width: 6em;
+}
+
+.w-7x {
+    width: 7em;
 }
 
 .w-xxs {

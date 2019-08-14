@@ -35,7 +35,7 @@
       <ngx-datatable-column prop="op" name="계산" [width]="100" [canAutoResize]="false" [resizeable]="false"
         cellClass="text-center">
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-          <button (click)="openModal('write',value)" class="btn btn-sm btn-default">
+          <button (click)="openModal('write',value)" class="btn btn-sm btn-ngx">
             전체계산
           </button>
         </ng-template>
@@ -87,12 +87,12 @@
 
           <div class="form-group">
             <div class="row">
-              <label for="year" class="col-lg-2 control-label">
+              <label for="year1" class="col-lg-2 control-label">
                 귀속연월
               </label>
 
               <div class="col-lg-2">
-                <select formControlName="year" id="year" class="form-control w-xs">
+                <select formControlName="year1" id="year1" class="form-control w-xs">
                   <option value="2018">2018</option>
                   <option value="2019">2019</option>
                   <option value="2020">2020</option>
@@ -100,22 +100,17 @@
               </div>
 
               <div class="col-lg-2">
-                <select formControlName="month" id="month" class="form-control w-xs">
-                  <option value="0">전체</option>
+                <select formControlName="month1" id="month1" class="form-control w-xs">
                   <option *ngFor="let month of m_object" value="{{month}}">{{month+"월"}}</option>
                 </select>
               </div>
 
-              <div class="col-lg-2">
-                <label>(급여차수</label>
-              </div>
-              <div class="col-lg-2">
-                <select style="float: left" formControlName="no" id="no" class="form-control w-xs">
+              <div class="col-lg-4" >
+                <label for="sal_no" style="float: left;">( 급여차수&nbsp;&nbsp;</label>
+                <select formControlName="sal_no" id="sal_no" class="form-control w-xxs" style="float: left;">
                   <option value="1">1</option>
                 </select>
-              </div>
-              <div class="col-lg-2">
-                <label>)</label>
+                <label>&nbsp;)</label>
               </div>
             </div>
           </div>
@@ -126,10 +121,10 @@
                 급여구분
               </label>
               <div class="col-lg-5">
-                <select formControlName="year" id="year" class="form-control w-sm">
-                  <option value="2018">2018</option>
-                  <option value="2019">2019</option>
-                  <option value="2020">2020</option>
+                <select formControlName="benefit_code" id="benefit_code" class="form-control w-sm">
+                  <option value="10">급여</option>
+                  <option value="20">급여상여</option>
+                  <option *ngFor="let bonus of bonus_no" value="{{bonus}}">{{"상여"+bonus+"회"}}</option>
                 </select>
               </div>
             </div>
@@ -141,10 +136,9 @@
                 세금계산
               </label>
               <div class="col-lg-5">
-                <select formControlName="year" id="year" class="form-control w-sm">
-                  <option value="2018">2018</option>
-                  <option value="2019">2019</option>
-                  <option value="2020">2020</option>
+                <select formControlName="benefit_name" id="benefit_name" class="form-control w-sm">
+                  <option value="1">귀속연월로 합산하여 세금 계산</option>
+                  <option value="2">이번 건만 세금 계산</option>
                 </select>
               </div>
             </div>
@@ -155,13 +149,13 @@
               <label for="entry_seq" class="col-lg-2 control-label">
                 대상기간
               </label>
-              <div class="col-lg-5">
+              <div class="col-lg-7">
                 <div class="col-sm-offset-0" style="float: left">
-                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-6x" />
+                  <input type="text" name="entry_seq" id="entry_seq" bsDatepicker value="" class="form-control w-s" />
                 </div>
                 <label style="float: left">&nbsp;-&nbsp;</label>
                 <div class="col-sm-offset-0" style="float: left">
-                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-6x" />
+                  <input type="text" name="entry_seq" id="entry_seq" bsDatepicker value="" class="form-control w-s" />
                 </div>
               </div>
             </div>
@@ -174,7 +168,7 @@
               </label>
               <div class="col-lg-5">
                 <div class="col-sm-offset-0" style="float: left">
-                  <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-6x" />
+                  <input type="text" name="tax_free_name" id="tax_free_name" bsDatepicker value="" class="form-control w-s" />
                 </div>
 
               </div>
@@ -187,17 +181,15 @@
                 지급연월
               </label>
               <div class="col-lg-2">
-                <select formControlName="year" id="year" class="form-control w-xs">
+                <select formControlName="benefit_name" id="benefit_name" class="form-control w-xs">
                   <option value="2018">2018</option>
                   <option value="2019">2019</option>
                   <option value="2020">2020</option>
                 </select>
               </div>
               <div class="col-lg-2">
-                <select formControlName="year" id="year" class="form-control w-xs">
-                  <option value="2018">2018</option>
-                  <option value="2019">2019</option>
-                  <option value="2020">2020</option>
+                <select formControlName="benefit_name" id="benefit_name" class="form-control w-xs">
+                  <option *ngFor="let month of m_object" value="{{month}}">{{month+"월"}}</option>
                 </select>
               </div>
             </div>
@@ -209,7 +201,7 @@
                 연말정산
               </label>
               <div class="col-lg-2">
-                <select formControlName="year" id="year" class="form-control w-xs">
+                <select formControlName="benefit_name" id="benefit_name" class="form-control w-xs">
                   <option value="2018">2018</option>
                   <option value="2019">2019</option>
                   <option value="2020">2020</option>

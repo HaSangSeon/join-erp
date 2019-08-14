@@ -2676,13 +2676,18 @@ fieldset[disabled] .checkbox label {
   padding-right: 0;
   padding-left: 0;
 }
-.input-sm {
+.col-lg-1 {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
 }
+
+.col-lg-1.se {
+  margin-left: 40px;
+}
+
 select.input-sm {
   height: 30px;
   line-height: 30px;

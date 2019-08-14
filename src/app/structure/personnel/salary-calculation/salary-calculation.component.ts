@@ -18,6 +18,7 @@ export class SalaryCalculationComponent implements OnInit {
 
   d_object=[];
   m_object=[];
+  bonus_no=[];
   rows=[];
   
   messages = this.globals.datatableMessages;
@@ -66,6 +67,9 @@ export class SalaryCalculationComponent implements OnInit {
   }
   for(var i=1; i<=31; i++ ){
     this.d_object.push(i)
+  }
+  for(var i=1; i<=9; i++){
+    this.bonus_no.push(i);
   }
 
 

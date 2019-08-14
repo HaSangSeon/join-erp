@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-sm-6">
         <form [formGroup]="searchForm">
-          <div class="col-lg-2">
+          <div class="col-lg-1">
             <select id="year" class="form-control w-xs">
               <option value="0">전체</option>
               <option value="2018">2018</option>
@@ -14,20 +14,28 @@
               <option value="2020">2020</option>
             </select>
           </div>
-          <div class="col-lg-2">
+          <div class="col-lg-1 se" >
             <select id="year" class="form-control w-xs">
               <option value="0">전체</option>
               <option *ngFor="let month of m_object" value="{{month}}">{{month+"월"}}</option>
             </select>
           </div>
-          <div class="col-lg-2">
+          <div class="col-lg-1 se">
             <select id="year" class="form-control w-xs">
               <option value="0">전체</option>
               <option *ngFor="let day of d_object" value="{{day}}">{{day+"일"}}</option>
             </select>
           </div>
-          <div class="col-lg-2">
-            <button (click)="getAll()" class="btn btn-sm btn-default">검색</button>
+          <div class="col-lg-1 se">
+            <select id="year" class="form-control w-xs">
+              <option value="0">전체</option>
+              <option value="10">급여</option>
+              <option value="20">급여상여</option>
+              <option *ngFor="let bonus of bonus_no" value="{{bonus}}">{{"상여"+bonus+"회"}}</option>
+            </select>
+          </div>
+          <div class="col-lg-2 se">
+            <button (click)="getAll()" class="btn btn-default">검색</button>
           </div>
         </form>
       </div>
@@ -61,7 +69,16 @@
       <ngx-datatable-column prop="" name="공제합계" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
       <ngx-datatable-column prop="" name="차인지급액" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
       <ngx-datatable-column prop="" name="계산" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="수정·삭제" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="" name="수정·삭제" [resizeable]="false" cellClass="text-center">
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+          <button (click)="openModal('write',value)" class="btn btn-xs btn-primary">
+            <i class="glyphicon glyphicon-edit"></i>
+          </button>
+          <button (click)="openModal('delete',value)" class="btn btn-xs btn-danger">
+            <i class="glyphicon glyphicon-trash"></i>
+          </button>
+        </ng-template>
+      </ngx-datatable-column>
     </ngx-datatable>
   </div>
 
@@ -98,24 +115,24 @@
 
           <div class="form-group">
             <div class="row">
-              <label for="passenger_name" class="col-lg-2 control-label">
+              <label for="passenger_name" class="col-lg-2-c control-label">
                 귀속연월
               </label>
               <label for="passenger_name" class="col-lg-4 control-label">
-                n
+                
               </label>
 
               <label for="passenger_phone" class="col-lg-2 control-label">
                 사원명
               </label>
-              <label for="passenger_phone" class="col-lg-2 control-label">
-                n
+              <label for="passenger_phone" class="col-lg-4 control-label">
+                
               </label>
             </div>
           </div>
           <div class="form-group">
             <div class="row">
-              <label for="passenger_name" class="col-lg-2 control-label">
+              <label for="passenger_name" class="col-lg-2-c control-label">
                 기본급
               </label>
               <div class="col-lg-4">
@@ -125,7 +142,7 @@
               <label for="passenger_phone" class="col-lg-2 control-label">
                 소득세
               </label>
-              <div class="col-lg-4">
+              <div class="col-lg-3">
                 <input type="text" name="passenger_phone" id="passenger_phone" value=""
                   class="form-control inline w-sm" />
               </div>
@@ -133,7 +150,7 @@
           </div>
           <div class="form-group">
             <div class="row">
-              <label for="passenger_name" class="col-lg-2 control-label">
+              <label for="passenger_name" class="col-lg-2-c control-label">
                 야근수당
               </label>
               <div class="col-lg-4">
@@ -143,7 +160,7 @@
               <label for="passenger_phone" class="col-lg-2 control-label">
                 주민세
               </label>
-              <div class="col-lg-4">
+              <div class="col-lg-3">
                 <input type="text" name="passenger_phone" id="passenger_phone" value=""
                   class="form-control inline w-sm" />
               </div>
@@ -151,7 +168,7 @@
           </div>
           <div class="form-group">
             <div class="row">
-              <label for="passenger_name" class="col-lg-2 control-label">
+              <label for="passenger_name" class="col-lg-2-c control-label">
                 식대
               </label>
               <div class="col-lg-4">
@@ -161,7 +178,7 @@
               <label for="passenger_phone" class="col-lg-2 control-label">
                 국민연금
               </label>
-              <div class="col-lg-4">
+              <div class="col-lg-3">
                 <input type="text" name="passenger_phone" id="passenger_phone" value=""
                   class="form-control inline w-sm" />
               </div>
@@ -169,7 +186,7 @@
           </div>
           <div class="form-group">
             <div class="row">
-              <label for="passenger_name" class="col-lg-2 control-label">
+              <label for="passenger_name" class="col-lg-2-c control-label">
                 차량유지비
               </label>
               <div class="col-lg-4">
@@ -179,7 +196,7 @@
               <label for="passenger_phone" class="col-lg-2 control-label">
                 건강보험
               </label>
-              <div class="col-lg-4">
+              <div class="col-lg-3">
                 <input type="text" name="passenger_phone" id="passenger_phone" value=""
                   class="form-control inline w-sm" />
               </div>
@@ -187,7 +204,7 @@
           </div>
           <div class="form-group">
             <div class="row">
-              <label for="passenger_name" class="col-lg-2 control-label">
+              <label for="passenger_name" class="col-lg-2-c control-label">
                 상여
               </label>
               <div class="col-lg-4">
@@ -197,7 +214,7 @@
               <label for="passenger_phone" class="col-lg-2 control-label">
                 장기요양
               </label>
-              <div class="col-lg-4">
+              <div class="col-lg-3">
                 <input type="text" name="passenger_phone" id="passenger_phone" value=""
                   class="form-control inline w-sm" />
               </div>
@@ -205,7 +222,7 @@
           </div>
           <div class="form-group">
             <div class="row">
-              <label for="passenger_name" class="col-lg-2 control-label">
+              <label for="passenger_name" class="col-lg-2-c control-label">
                 연말정산
               </label>
               <div class="col-lg-4">
@@ -215,7 +232,7 @@
               <label for="passenger_phone" class="col-lg-2 control-label">
                 고용보험
               </label>
-              <div class="col-lg-4">
+              <div class="col-lg-3">
                 <input type="text" name="passenger_phone" id="passenger_phone" value=""
                   class="form-control inline w-sm" />
               </div>
@@ -223,18 +240,18 @@
           </div>
           <div class="form-group">
             <div class="row">
-              <label for="passenger_name" class="col-lg-2 control-label">
+              <label for="passenger_name" class="col-lg-2-c control-label" >
                 지급총액
               </label>
               <div class="col-lg-4">
-                <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-sm"
-                  style="float: left" />
+                <input type="text" readonly name="passenger_phone" id="passenger_phone" value=""
+                  class="form-control inline w-sm" />
               </div>
               <label for="passenger_phone" class="col-lg-2 control-label">
                 공제총액
               </label>
-              <div class="col-lg-4">
-                <input type="text" name="passenger_phone" id="passenger_phone" value=""
+              <div class="col-lg-3">
+                <input type="text" readonly name="passenger_phone" id="passenger_phone" value=""
                   class="form-control inline w-sm" />
               </div>
             </div>

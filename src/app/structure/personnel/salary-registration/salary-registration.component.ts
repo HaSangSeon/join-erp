@@ -26,6 +26,7 @@ export class SalaryRegistrationComponent implements OnInit {
   rows=[];
   temp=[];
   m_object=[];
+  bonus_no=[];
   listData: Item[];
 
   messages = this.globals.datatableMessages;
@@ -46,7 +47,9 @@ export class SalaryRegistrationComponent implements OnInit {
 
     this.inputForm = fb.group({
       benefit_code: ['', Validators.required],
-      year: ['', Validators.required],
+      year1: ['', Validators.required],
+      month1:['', Validators.required],
+      sal_no:['', Validators.required],
       benefit_name: ['', Validators.required],
       entry_seq: ['', Validators.required],
       tax_free_name: ['', Validators.required],
@@ -55,6 +58,9 @@ export class SalaryRegistrationComponent implements OnInit {
 
     for(var i=1; i<=12; i++){
       this.m_object.push(i);
+    }
+    for(var i=1; i<=9; i++){
+      this.bonus_no.push(i);
     }
 
   }
