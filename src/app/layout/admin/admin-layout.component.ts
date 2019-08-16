@@ -8,7 +8,6 @@ import { UserService } from '../../user.service';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-import { p } from '@angular/core/src/render3';
 
 @Component({
     selector: 'app-layout',
@@ -41,7 +40,10 @@ export class AdminLayoutComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        console.log("in");
+        console.log(event);
         this.router.events.subscribe((event) => {
+
             if ( event instanceof NavigationEnd ) {
                 this.currentMenu = this.getActiveGroupMenu();
                 this.currentSubmenu = this.router.url;
@@ -67,9 +69,11 @@ export class AdminLayoutComponent implements OnInit {
     getActiveGroupMenu() {
         let toArray = this.router.url.split('/');
         let ret = toArray[0] + '/' + toArray[1];
+        console.log("ret0:"+toArray[0])
         if (ret == '/settings') {
             ret = ret + '/' + toArray[2];
         }
+        console.log(ret);
         return ret;
     }
 

@@ -18,7 +18,7 @@ import { PayStepComponent } from './pay-step/pay-step.component';
 import { SharedModule } from '../../shared/shared.module';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'personnel/employee', pathMatch: 'full'},
+  { path: 'personnel', redirectTo: 'personnel/employee', pathMatch: 'full'},
   { path: 'personnel/employee', component: EmployeeComponent, data: { title: '환경설정 > 인사/급여 > 사원등록', id:371 } },
   { path: 'personnel/department', component: DepartmentComponent, data: { title: '환경설정 > 인사/급여 > 부서등록', id:372 } },
   { path: 'personnel/salary', component: SalaryComponent, data: { title: '환경설정 > 인사/급여 > 수당항목등록', id:373 } },

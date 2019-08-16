@@ -171,12 +171,12 @@
 		<i class="menuNo">{{ menu.no }}</i>
 		<span class="font-bold">{{ menu.name }}</span>
 	</a>
-	<ul *ngIf="menu.sub.length > 0" class="nav dk">
-		<li class="nav-sub-header">
+	<ul *ngIf="menu.sub.length > 0" class="nav nav-sub dk" >
+		<!-- <li class="nav-sub-header">
 			<a [routerLink]="menu.src">
 				<span>{{ menu.name }}</span>
 			</a>
-		</li>
+		</li> -->
 		<li *ngFor="let submenu of menu.sub; let j = index" [ngClass]="{'active': currentSubmenu==submenu.src}">
 			<a [routerLink]="submenu.src"><i class="subMenuNo">{{ submenu.no }}</i>{{ submenu.name }}</a>
 		</li>
