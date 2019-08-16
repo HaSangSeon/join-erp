@@ -40,8 +40,6 @@ export class AdminLayoutComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        console.log("in");
-        console.log(event);
         this.router.events.subscribe((event) => {
 
             if ( event instanceof NavigationEnd ) {
@@ -69,11 +67,9 @@ export class AdminLayoutComponent implements OnInit {
     getActiveGroupMenu() {
         let toArray = this.router.url.split('/');
         let ret = toArray[0] + '/' + toArray[1];
-        console.log("ret0:"+toArray[0])
         if (ret == '/settings') {
             ret = ret + '/' + toArray[2];
         }
-        console.log(ret);
         return ret;
     }
 
