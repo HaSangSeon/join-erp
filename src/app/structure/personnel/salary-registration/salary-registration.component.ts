@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Item } from './salary-registration.item';
 import { MessageService } from '../../../message.service';
+import { DatePipe } from '@angular/common';
 import { AppGlobals } from '../../../app.globals';
 import { ActivatedRoute } from '@angular/router';
-import { SalaryService } from '../../settings/personnel/salary/salary.service';
+import { SalaryRegistrationService } from './salary-registration.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -42,18 +43,22 @@ export class SalaryRegistrationComponent implements OnInit {
     private messageService: MessageService,
     private globals: AppGlobals,
     private route: ActivatedRoute,
-    private dataService: SalaryService
+    private datePipe: DatePipe,
+    private dataService: SalaryRegistrationService
   ) {
 
     this.inputForm = fb.group({
-      benefit_code: ['', Validators.required],
-      year1: ['', Validators.required],
-      month1:['', Validators.required],
-      sal_no:['', Validators.required],
-      benefit_name: ['', Validators.required],
-      entry_seq: ['', Validators.required],
-      tax_free_name: ['', Validators.required],
-      createdAt: '',
+      year: ['', Validators.required],
+      month: ['', Validators.required],
+      pay_num:[''],
+      pay_type:['', Validators.required],
+      tax_calculation: [''],
+      s_period: ['', Validators.required],
+      e_period: ['', Validators.required],
+      pay_year: ['', Validators.required],
+      pay_month: ['', Validators.required],
+      pay_day: ['', Validators.required],
+      year_end_adjust: ['']
     });
 
     for(var i=1; i<=12; i++){
@@ -68,7 +73,7 @@ export class SalaryRegistrationComponent implements OnInit {
   ngOnInit() {
     this.panelTitle = '급여지급연월'
     this.inputFormTitle = "급여지급연월등록"
-    this.getAll()
+    this.getAll();
   }
 
   getAll(): void {
@@ -84,7 +89,7 @@ export class SalaryRegistrationComponent implements OnInit {
 
         this.isLoadingProgress = false;
       }
-    )
+    );
   }
 
   openModal(method, id) {
@@ -106,27 +111,29 @@ export class SalaryRegistrationComponent implements OnInit {
 
   Save() {
     let formData = this.inputForm.value;
+    formData.pay_num = formData.pay_num * 1;
+    formData.pay_type = formData.pay_type * 1;
+    formData.tax_calculation = formData.tax_calculation * 1;
+    formData.s_period = this.datePipe.transform(formData.s_period, 'yyyy-MM-dd');
+    formData.e_period = this.datePipe.transform(formData.e_period, 'yyyy-MM-dd');
+    formData.pay_day = this.datePipe.transform(formData.pay_day, 'yyyy-MM-dd');
 
-    this.Create(formData);
+    this.dataService.Save(formData)
+    .subscribe(
+      data => {
+        if (data['result'] == 'success') {
+          this.inputForm.reset();
+          this.messageService.add(this.addOkMsg);
+        } else {
+          this.messageService.add(data['errorMessage'])
+        }
+        this.inputFormModal.hide();
+      },
+      error => this.errorMessage = <any>error
+    );
 
   }
 
-  Create(data): void {
-    this.dataService.Create(data)
-      .subscribe(
-        data => {
 
-          if (data['result'] == 'success') {
-            this.inputForm.reset();
-            this.messageService.add(this.addOkMsg);
-          } else {
-            this.messageService.add(data['errorMessage'])
-          }
-          this.inputFormModal.hide();
-        },
-        error => this.errorMessage = <any>error
-
-      )
-  }
 
 }

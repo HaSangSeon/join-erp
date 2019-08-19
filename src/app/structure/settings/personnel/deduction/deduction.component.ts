@@ -51,8 +51,9 @@ export class DeductionComponent implements OnInit {
 
 
     this.inputForm = fb.group({
-      deduction_code: ['', Validators.required],
       year: ['', Validators.required],
+      deduction_code: ['', Validators.required],      
+      deduction_name: ['', Validators.required],      
       acct_code: ['', Validators.required],
       calculation_method1: ['', Validators.required],
       calculation_method2: ['', Validators.required],

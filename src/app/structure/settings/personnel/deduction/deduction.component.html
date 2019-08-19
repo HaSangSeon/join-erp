@@ -36,7 +36,7 @@
         <ngx-datatable-column name="No" [width]="50" [canAutoResize]="false" [resizeable]="false" cellClass="text-center">
           <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"><span>{{rowIndex+1}}</span></ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="deduction_code" name="수당명" [width]="200" [canAutoResize]="false"  [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+        <ngx-datatable-column prop="deduction_name" name="수당명" [width]="200" [canAutoResize]="false"  [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
         <ngx-datatable-column prop="acct_code" name="계정코드" [width]="200" [canAutoResize]="false"  [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
         <ngx-datatable-column name="계산식" [resizeable]="false" [width]="200" [canAutoResize]="false"  cellClass="text-center">
           <ng-template ngx-datatable-cell-template let-row="row">
@@ -104,14 +104,26 @@
                 </div>
               </div>
             </div>
-  
+    
             <div class="form-group">
               <div class="row">
                 <label for="deduction_code" class="col-lg-2 control-label">
-                  수당명
+                  공제코드
                 </label>
                 <div class="col-lg-5">
                   <input type="text" formControlName="deduction_code" id="deduction_code"
+                    class="form-control inline w-sm" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <label for="deduction_name" class="col-lg-2 control-label">
+                  공제명
+                </label>
+                <div class="col-lg-5">
+                  <input type="text" formControlName="deduction_name" id="deduction_name"
                     class="form-control inline w-sm" />
                 </div>
               </div>
