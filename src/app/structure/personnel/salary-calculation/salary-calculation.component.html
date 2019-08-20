@@ -7,31 +7,30 @@
       <div class="col-sm-6">
         <form [formGroup]="searchForm">
           <div class="col-lg-1">
-            <select id="year" class="form-control w-xs">
-              <option value="0">전체</option>
+            <select formControlName="year" class="form-control w-xs">
+              <option value="">전체</option>
               <option value="2018">2018</option>
               <option value="2019">2019</option>
               <option value="2020">2020</option>
             </select>
           </div>
           <div class="col-lg-1 se" >
-            <select id="year" class="form-control w-xs">
-              <option value="0">전체</option>
-              <option *ngFor="let month of m_object" value="{{month}}">{{month+"월"}}</option>
+            <select formControlName="month" class="form-control w-xs">
+              <option value="">전체</option>
+              <option *ngFor="let month of arr_month" value="{{month}}">{{month+"월"}}</option>
             </select>
           </div>
           <div class="col-lg-1 se">
-            <select id="year" class="form-control w-xs">
-              <option value="0">전체</option>
-              <option *ngFor="let day of d_object" value="{{day}}">{{day+"일"}}</option>
+            <select formControlName="pay_num" class="form-control w-xs">
+              <option value="1">1</option>
             </select>
           </div>
           <div class="col-lg-1 se">
-            <select id="year" class="form-control w-xs">
-              <option value="0">전체</option>
+            <select formControlName="pay_type" class="form-control w-xs">
+              <option value="">전체</option>
               <option value="10">급여</option>
               <option value="20">급여상여</option>
-              <option *ngFor="let bonus of bonus_no" value="{{bonus}}">{{"상여"+bonus+"회"}}</option>
+              <option *ngFor="let pay_type of arr_pay_type" value="{{pay_type}}">{{"상여"+pay_type+"회"}}</option>
             </select>
           </div>
           <div class="col-lg-2 se">
@@ -127,13 +126,13 @@
             <div class="col-lg-4">
 
                 <p *ngFor="let benefit of benefitRows">
-                  {{ benefit.benefit_name }} <input type="text" formControlName="{{benefit.benefit_code}}" class="form-control w-sm" />  
+                  {{ benefit.benefit_name }} <input type="text" formControlName="id_{{benefit.benefit_code}}_benefit" class="form-control w-sm" />  
                 </p>             
             </div>
 
             <div class="col-lg-4">
                 <p *ngFor="let deduction of deductionRows">
-                  {{ deduction.deduction_name }} <input type="text" formControlName="{{deduction.deduction_code}}" class="form-control w-sm" />    
+                  {{ deduction.deduction_name }} <input type="text" formControlName="id_{{deduction.deduction_code}}_deduction" class="form-control w-sm" />    
                 </p>
             </div>
             

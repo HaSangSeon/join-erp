@@ -23,9 +23,8 @@ export class SalaryCalculationComponent implements OnInit {
   userId: string;
   userName: string;
 
-  d_object=[];
-  m_object=[];
-  bonus_no=[];
+  arr_month = [];
+  arr_pay_type = [];
 
   rows = [];
   benefitRows = [];
@@ -51,7 +50,8 @@ export class SalaryCalculationComponent implements OnInit {
   {
 
     this.inputForm = fb.group({
-      year: ['2019', Validators.required]
+      year: '',
+      month: ''
     });
 
     this.searchForm = fb.group({
@@ -61,14 +61,11 @@ export class SalaryCalculationComponent implements OnInit {
         pay_type: ['']
     });
 
-    for(var i=1; i<=12; i++){
-      this.m_object.push(i);
+    for(var i=1; i<=12; i++) {
+      this.arr_month.push(i);
     }
-    for(var i=1; i<=31; i++ ){
-      this.d_object.push(i)
-    }
-    for(var i=1; i<=9; i++){
-      this.bonus_no.push(i);
+    for(var i=1; i<=9; i++) {
+      this.arr_pay_type.push(i);
     }
 
 
@@ -92,7 +89,6 @@ export class SalaryCalculationComponent implements OnInit {
     this.dataService.GetAll(params).subscribe(
       listData => {
         this.rows = listData['data'];
-        
         this.isLoadingProgress = false;
       }
     );
@@ -102,7 +98,33 @@ export class SalaryCalculationComponent implements OnInit {
 
   Save() {
     let formData = this.inputForm.value;
-    this.dataService.Save(formData)
+
+    let rowData = [];
+    for(var i in this.benefitRows) {
+      let colData = [];
+      colData.push( this.benefitRows[i]['benefit_code'] ); 
+      colData.push('P');      
+      colData.push( formData['id_'+this.benefitRows[i]['benefit_code']+'_benefit'] );
+      rowData.push(colData.join(':#:'));
+    }
+    
+    for(var i in this.deductionRows) {
+      let colData = [];
+      colData.push( this.deductionRows[i]['deduction_code'] ); 
+      colData.push('D');      
+      colData.push( formData['id_'+this.deductionRows[i]['deduction_code']+'_deduction'] );
+      rowData.push(colData.join(':#:'));
+    }
+
+
+    const saveData = {
+        year: this.year,
+        month: this.month,
+        user_id: this.userId,
+        pattern_data: rowData.join('=||=')
+    }
+
+    this.dataService.Save(saveData)
     .subscribe(
       data => {
         if (data['result'] == 'success') {
@@ -134,7 +156,7 @@ export class SalaryCalculationComponent implements OnInit {
         this.benefitRows = listData['data'];
         for(var i in listData['data']) {
           let code = listData['data'][i]['benefit_code'];     
-          this.inputForm.addControl(code, new FormControl(''));
+          this.inputForm.addControl('id_'+code+'_benefit', new FormControl(''));
         }
       }
     );
@@ -144,7 +166,7 @@ export class SalaryCalculationComponent implements OnInit {
         this.deductionRows = listData['data'];  
         for(var i in listData['data']) {
           let code = listData['data'][i]['deduction_code'];     
-          this.inputForm.addControl(code, new FormControl(''));
+          this.inputForm.addControl('id_'+code+'_deduction', new FormControl(''));
         }      
       }
     );
