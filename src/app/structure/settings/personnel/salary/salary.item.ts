@@ -6,6 +6,8 @@ export class Item {
         order: string;
         tax_free_name: string;
         createdAt: string;
+        entry_seq: string;
+        id: number;
 
     };
     maxResultCount: number;

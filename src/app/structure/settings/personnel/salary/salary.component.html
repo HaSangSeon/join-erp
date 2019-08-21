@@ -50,7 +50,7 @@
             <ngx-datatable-column prop="entry_seq" name="순서" [width]="200" [canAutoResize]="false" [width]="1"
                 [resizeable]="false" cellClass="text-center">
             </ngx-datatable-column>
-            <ngx-datatable-column prop="op" name="수정&middot;삭제" [width]="100" [canAutoResize]="false"
+            <ngx-datatable-column prop="id" name="수정&middot;삭제" [width]="100" [canAutoResize]="false"
                 [resizeable]="false" cellClass="text-center">
                 <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
                     <button (click)="openModal('write',value)" class="btn btn-xs btn-primary">
@@ -141,7 +141,7 @@
                                 표시순서
                             </label>
                             <div class="col-lg-4">
-                                <input type="text" formControlName="entry_seq" id="passenger_phone" value=""
+                                <input type="text" formControlName="entry_seq" id="entry_seq" value=""
                                     class="form-control inline w-3x" />
                             </div>
                         </div>
@@ -153,7 +153,7 @@
                                 비과세
                             </label>
                             <div class="col-lg-4">
-                                <input type="text" formControlName="tax_free_name" id="passenger_phone" value=""
+                                <input type="text" formControlName="tax_free_name" id="tax_free_name" value=""
                                     class="form-control inline w-sm" />
                             </div>
                         </div>

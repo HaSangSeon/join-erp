@@ -6,6 +6,7 @@ import { SalaryService } from './salary.service';
 import { Item } from './salary.item';
 import { MessageService } from '../../../../message.service';
 import { AppGlobals } from '../../../../app.globals';
+import { ConfigService } from '../../../../config.service';
 
 @Component({
   selector: 'app-salary',
@@ -18,14 +19,18 @@ export class SalaryComponent implements OnInit {
   panelTitle: string;
   inputFormTitle: string;
   errorMessage: string;
+  selectedId: string;
 
   isExecutable: boolean = false;
   isEditMode: boolean = false;
   isLoadingProgress: boolean = false;
 
-  rows=[];
-  temp=[];
+  rows = [];
+  temp = [];
+  selected = [];
   listData: Item[];
+  editData: Item;
+  formData: Item['data'];
 
   messages = this.globals.datatableMessages;
   gridHeight = this.globals.gridHeight;
@@ -40,7 +45,8 @@ export class SalaryComponent implements OnInit {
     private messageService: MessageService,
     private globals: AppGlobals,
     private route: ActivatedRoute,
-    private dataService: SalaryService
+    private dataService: SalaryService,
+    private configService: ConfigService
   ) {
 
     this.inputForm = fb.group({
@@ -70,7 +76,8 @@ export class SalaryComponent implements OnInit {
         this.listData = listData;
         this.temp = listData['data'];
         this.rows = listData['data'];
-
+        //test
+        console.log(this.rows);
         this.isLoadingProgress = false;
       }
     )
@@ -81,10 +88,15 @@ export class SalaryComponent implements OnInit {
     if (method == 'write') {
       this.inputFormModal.show();
     }
+    //test
+    console.log("id:" + id)
 
     if (method == 'write') {
       if (id) {
+        //test
+        console.log("write in")
         this.isEditMode = true;
+        this.Edit(id);
       } else {
         this.inputForm.reset();
         this.isEditMode = false;
@@ -95,18 +107,43 @@ export class SalaryComponent implements OnInit {
 
   Save() {
     let formData = this.inputForm.value;
-
+    //test
+    console.log("formData:");
+    console.log(formData);
     this.Create(formData);
 
+
+  }
+
+  Update(id, data): void {
+    this.dataService.Update(id, data)
+      .subscribe(
+        data => {
+          if (data['result'] == "success") {
+            this.inputForm.reset();
+            this.getAll();
+            this.messageService.add(this.editOkMsg);
+          } else {
+            this.messageService.add(data['errorMessage']);
+          }
+          this.inputFormModal.hide();
+        },
+        error => this.errorMessage = <any>error
+      );
   }
 
   Create(data): void {
     this.dataService.Create(data)
       .subscribe(
         data => {
-
+          //test
+          console.log("result:")
+          console.log(data['result'])
+          
           if (data['result'] == 'success') {
             this.inputForm.reset();
+            this.configService.load();
+            this.getAll();
             this.messageService.add(this.addOkMsg);
           } else {
             this.messageService.add(data['errorMessage'])
@@ -116,5 +153,27 @@ export class SalaryComponent implements OnInit {
         error => this.errorMessage = <any>error
 
       )
+  }
+
+  Edit(id) {
+    //test
+    console.log("Edit in");
+    this.dataService.GetById(id).subscribe(
+      editData => {
+        //test
+        console.log("editData:" + editData);
+        if (editData['result'] == "success") {
+          this.editData = editData;
+          this.formData = editData['data'];
+          this.inputForm.patchValue({
+            benefit_code: this.formData.benefit_code,
+            year: this.formData.year,
+            benefit_name: this.formData.benefit_name,
+            entry_seq: this.formData.entry_seq,
+            tax_free_name: this.formData.tax_free_name,
+          });
+        }
+      }
+    );
   }
 }
