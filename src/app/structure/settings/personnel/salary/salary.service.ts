@@ -33,8 +33,6 @@ export class SalaryService {
   }
 
   GetById (id:number): Observable<Item> {
-    //test
-    console.log("GetById:"+this.url+'/'+id);
     return this.http.get<Item>(this.url+'/'+id);
 }
   /** PUT: 데이터 수정 */

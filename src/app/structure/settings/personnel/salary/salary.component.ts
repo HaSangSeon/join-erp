@@ -76,8 +76,6 @@ export class SalaryComponent implements OnInit {
         this.listData = listData;
         this.temp = listData['data'];
         this.rows = listData['data'];
-        //test
-        console.log(this.rows);
         this.isLoadingProgress = false;
       }
     )
@@ -88,13 +86,19 @@ export class SalaryComponent implements OnInit {
     if (method == 'write') {
       this.inputFormModal.show();
     }
-    //test
-    console.log("id:" + id)
-
+    if (id) {
+      if (id == 'selected') {
+        let idArr = [];
+        this.selected.forEach((e: any) => {
+          idArr.push(e.id);
+        });
+        this.selectedId = idArr.join(',');
+      } else {
+        this.selectedId = id;
+      }
+    }
     if (method == 'write') {
       if (id) {
-        //test
-        console.log("write in")
         this.isEditMode = true;
         this.Edit(id);
       } else {
@@ -107,11 +111,13 @@ export class SalaryComponent implements OnInit {
 
   Save() {
     let formData = this.inputForm.value;
-    //test
-    console.log("formData:");
-    console.log(formData);
-    this.Create(formData);
 
+    if (this.isEditMode == true) {
+      this.Update(this.selectedId, formData);
+    } else {
+      formData.st = '1';
+      this.Create(formData);
+    }
 
   }
 
@@ -136,10 +142,7 @@ export class SalaryComponent implements OnInit {
     this.dataService.Create(data)
       .subscribe(
         data => {
-          //test
-          console.log("result:")
-          console.log(data['result'])
-          
+
           if (data['result'] == 'success') {
             this.inputForm.reset();
             this.configService.load();
@@ -156,12 +159,8 @@ export class SalaryComponent implements OnInit {
   }
 
   Edit(id) {
-    //test
-    console.log("Edit in");
     this.dataService.GetById(id).subscribe(
       editData => {
-        //test
-        console.log("editData:" + editData);
         if (editData['result'] == "success") {
           this.editData = editData;
           this.formData = editData['data'];
