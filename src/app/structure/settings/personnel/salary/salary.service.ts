@@ -40,6 +40,10 @@ export class SalaryService {
     return this.http.put<Item>(this.url + '/' + id, data, httpOptions);
   }
 
+  Delete (id:string): Observable<Item> {
+    return this.http.delete<Item>(this.url + "/" + id, httpOptions);
+  }
+
   /**
   * 실패한 Http 작업 처리
   * 프로그램은 계속 실행되도록 함.

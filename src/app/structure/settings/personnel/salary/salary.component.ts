@@ -20,6 +20,8 @@ export class SalaryComponent implements OnInit {
   inputFormTitle: string;
   errorMessage: string;
   selectedId: string;
+  deleteFormTitle: string;
+  deleteConfirmMsg: string;
 
   isExecutable: boolean = false;
   isEditMode: boolean = false;
@@ -39,6 +41,8 @@ export class SalaryComponent implements OnInit {
   editOkMsg = "수정이 완료 되었습니다.";
 
   @ViewChild('InputFormModal') inputFormModal: ModalDirective;
+  @ViewChild('DeleteFormModal') deleteFormModal: ModalDirective;
+
 
   constructor(
     @Inject(FormBuilder) fb: FormBuilder,
@@ -85,6 +89,14 @@ export class SalaryComponent implements OnInit {
 
     if (method == 'write') {
       this.inputFormModal.show();
+    } else if (method == 'delete') {
+      this.deleteFormModal.show();
+    }
+    switch (method) {
+      case 'delete':
+        this.deleteFormTitle = '수당정보 삭제';
+        this.deleteConfirmMsg = '선택하신 데이터를 삭제하시겠습니까?';
+        break;
     }
     if (id) {
       if (id == 'selected') {
@@ -175,4 +187,21 @@ export class SalaryComponent implements OnInit {
       }
     );
   }
+
+  Delete () {
+    this.dataService.Delete(this.selectedId)
+        .subscribe(
+        data => {
+            if (data['result'] == "success") {
+                this.getAll();
+                this.deleteFormModal.hide();
+                this.messageService.add(this.addOkMsg);
+            } else {
+                this.messageService.add(data['errorMessage']);
+            }
+        },
+        error => this.errorMessage = <any>error
+    );
+}
+
 }
