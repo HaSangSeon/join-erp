@@ -80,6 +80,7 @@ export class SalaryComponent implements OnInit {
         this.listData = listData;
         this.temp = listData['data'];
         this.rows = listData['data'];
+        
         this.isLoadingProgress = false;
       }
     )
