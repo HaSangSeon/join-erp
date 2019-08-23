@@ -92,9 +92,6 @@ export class EmployeeComponent implements OnInit {
         this.listData = listData;
         this.temp = listData['data'];
         this.rows = listData['data'];
-        //test
-        console.log("rows:");
-        console.log(this.rows);
 
         this.isLoadingProgress = false;
       }

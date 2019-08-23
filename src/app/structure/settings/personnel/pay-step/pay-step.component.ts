@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { SalaryService } from '../salary/salary.service';
 import { MessageService } from '../../../../message.service';
 import { AppGlobals } from '../../../../app.globals';
+import { Item } from './pay-step.item';
+import { PayStepService } from './pay-step.service';
 
 @Component({
   selector: 'app-pay-step',
@@ -13,17 +15,20 @@ import { AppGlobals } from '../../../../app.globals';
 })
 export class PayStepComponent implements OnInit {
 
-  loadForm: FormGroup;
+  inputForm: FormGroup;
+  listData : Item[];
+  rows = [];
+  temp = [];
+
 
   panelTitle: string;
   inputFormTitle: string;
   errorMessage: string;
+  ps_job_type: string;
 
   isExecutable: boolean = false;
   isEditMode: boolean = false;
   isLoadingProgress: boolean = false;
-
-  rows=[];
 
   messages = this.globals.datatableMessages;
   gridHeight = this.globals.gridHeight;
@@ -33,10 +38,10 @@ export class PayStepComponent implements OnInit {
     private messageService: MessageService,
     private globals: AppGlobals,
     private route: ActivatedRoute,
-    private dataService: SalaryService
+    private dataService: PayStepService
   ) {
 
-    this.loadForm = fb.group({
+    this.inputForm = fb.group({
       job_type: '',
       job_grade: '',
       sal_class: '',
@@ -47,6 +52,27 @@ export class PayStepComponent implements OnInit {
 
   ngOnInit() {
     this.panelTitle = '호봉제정보'
+
+    this.getAll()
   }
 
+  getAll(): void {
+    let params = {
+    }
+    this.isLoadingProgress = true;
+    this.dataService.GetAll(params).subscribe(
+      listData => {
+        this.listData = listData;
+        this.temp = listData['data'];
+        this.rows = listData['data'];
+        
+        this.ps_job_type = listData['data'][0]['job_type'][0];
+
+        //test
+        console.log(this.ps_job_type);
+
+        this.isLoadingProgress = false;
+      }
+    )
+  }
 }
