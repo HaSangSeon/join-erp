@@ -42,6 +42,29 @@
 
 </div>
 
+<div bsModal #UploadFormModal="bs-modal" id="upload-form" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" (click)="UploadFormModal.hide()"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">{{ uploadFormTitle }}</h4>
+          </div>
+          <div class="modal-body">
+              <div class="text-center padder-v">            
+                  <input type="file" placeholder="Upload file" accept=".xls,.xlsx" #uploadFileSrc />
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="text-center">
+                  <button type="button" (click)="fileSelected()" class="btn btn-primary btn-save">업로드</button>
+                  <button type="button" (click)="uploadFileSrc.value=''; uploadFormModal.hide()" class="btn btn-default btn-cancel">취소</button>
+                  <button type="button" (click)="excelDown()" class="btn btn-success">다운로드</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
 <div *ngIf="isLoadingProgress" class="loading-progress">
 
     <div class="sk-fading-circle">

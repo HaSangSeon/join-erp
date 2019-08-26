@@ -3,6 +3,9 @@ import { AppGlobals } from '../../../../app.globals';
 import { Observable, of } from 'rxjs';
 import { Item } from './pay-step.item';
 import { HttpClient } from '@angular/common/http';
+import { tap, catchError } from 'rxjs/operators';
+
+const httpOptions = {};
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +22,17 @@ export class PayStepService {
   GetAll(params): Observable<Item[]> {
     return this.http.get<Item[]>(this.url, { params: params });
   }
+
+  GetExcelFile(ym): Observable<Blob> {
+    return this.http.get(this.url + '/exceldown/' + ym, { responseType: 'blob' }).pipe(
+      tap((data: Blob) => console.log(data)),
+      catchError(this.handleError<Blob>('Create'))
+    );
+  }
+
+  UploadExcelFile (data) {
+    return this.http.post(this.url + '/excelupload', data, httpOptions)
+}
 
   /**
   * 실패한 Http 작업 처리
