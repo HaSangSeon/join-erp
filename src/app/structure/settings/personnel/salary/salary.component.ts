@@ -68,6 +68,7 @@ export class SalaryComponent implements OnInit {
     this.dataService.GetAll(params).subscribe(
       listData => {
         this.listData = listData;
+        console.log(listData)
         this.temp = listData['data'];
         this.rows = listData['data'];
 

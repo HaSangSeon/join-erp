@@ -34,7 +34,7 @@
             </select>
           </div>
           <div class="col-lg-2 se">
-            <button (click)="getAll()" class="btn btn-default">검색</button>
+            <button (click)="getAll()" [disabled]="!searchForm.valid" class="btn btn-default">검색</button>
           </div>
         </form>
       </div>
@@ -46,56 +46,48 @@
     </div>
   </div>
 
-  <div class="panel-body">
-    <ngx-datatable 
-      [style.height.px]=gridHeight 
-      class="bootstrap" 
-      [rows]="rows"
-      [columnMode]="'force'"
-      [headerHeight]="30"
-      [rowHeight]="30"      
-      [scrollbarV]="true" 
-      [scrollbarH]="false" 
-      [selectionType]="'checkbox'"
-      [messages]="messages">
-      <ngx-datatable-column prop="" name="No" [width]="50" [canAutoResize]="false" [resizeable]="false"
-        cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="user_name" name="사원명" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="부서" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="position_name" name="직급" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="지급총액" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="기본급" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="야근수당" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="상여" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="국민연금" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="건강보험" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="장기요양" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="고용보험" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="소득세" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="주민세" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="공제합계" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="차인지급액" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="계산" [resizeable]="false" cellClass="text-center">
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-          <button (click)="openModal('calculation',value)" class="btn btn-xs btn-primary">
+
+  <div class="table-responsive">
+		<table class="table table-bordered b-light" style="border-top:1px solid #eaeff0">
+      <thead>
+        <tr>
+          <th class="text-center">사원명</th>
+          <th class="text-center">부서</th>
+          <th class="text-center">직급</th>
+          <th class="text-center">지급총액</th>
+          <th class="text-center" *ngFor="let data of benefitRows">{{ data.benefit_name }}</th>
+          <th class="text-center" *ngFor="let data of deductionRows">{{ data.deduction_name }}</th>
+          <th class="text-center">공제합계</th>
+          <th class="text-center">차인지급액</th>
+          <th class="text-center">계산</th>
+          <th class="text-center">수정&middot;삭제</th>
+        </tr>
+      </thead>
+      <tbody>
+       <tr *ngFor="let dt of rows">
+        <td class="text-center">{{ dt.user_id }}</td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td class="text-center" *ngFor="let d of dt.data">{{d}}</td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td class="text-center">
+          <button class="btn btn-xs btn-primary" (click)="openModal('write', dt)">
             <i class="glyphicon glyphicon-user"></i>
           </button>
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column prop="" name="수정·삭제" [resizeable]="false" cellClass="text-center">
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-          <button (click)="openModal('write',value)" class="btn btn-xs btn-primary">
-            <i class="glyphicon glyphicon-edit"></i>
-          </button>
-          <button (click)="openModal('delete',value)" class="btn btn-xs btn-danger">
-            <i class="glyphicon glyphicon-trash"></i>
-          </button>
-        </ng-template>
-      </ngx-datatable-column>
-    </ngx-datatable>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-xs btn-primary" (click)="openModal('')">
+                <i class="glyphicon glyphicon-edit"></i>
+            </button>
+            <a href="" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+        </td>
+      </tr>
+      </tbody>
+		</table>
   </div>
-
-
+  
   <div class="panel-footer text-right">
 
     <a href="" class="btn btn-sm btn-info btn-addon"><i class="glyphicon glyphicon-print"></i>인쇄</a>
@@ -105,37 +97,64 @@
 
 </div>
 
+
+
 <!-- 급여계산등록 -->
 <div bsModal #InputFormModal="bs-modal" id="input-form" class="modal fade" tabindex="-1" role="dialog"
   aria-hidden="true">
   <div class="modal-dialog ">
     <div class="modal-content ">
+      
 
       <form [formGroup]="inputForm">
         <div class="modal-header">
-          <button type="button" class="close" (click)="InputFormModal.hide()"><span
-              aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" (click)="InputFormModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
           <h4 class="modal-title">{{ inputFormTitle }}</h4>
         </div>
 
         <div class="modal-body">
           <input type="hidden" formControlName="year" />
+          <input type="hidden" formControlName="month" />
+          <input type="hidden" formControlName="user_id" />
 
-          <div class="form-group">
+          <div class="row">
 
-            <div class="col-lg-4">
-
-                <p *ngFor="let benefit of benefitRows">
-                  {{ benefit.benefit_name }} <input type="text" formControlName="id_{{benefit.benefit_code}}_benefit" class="form-control w-sm" />  
-                </p>             
+            <div class="col-lg-6">
+                <div style="padding:5px; background-color:#e6e6e6">
+                 귀속년월 : {{ inputForm.value.year }}년 {{ inputForm.value.month }}월
+                </div>
+                <table>
+                    <tr *ngFor="let benefit of benefitRows">
+                      <th>
+                          <label for="id_{{benefit.benefit_code}}_benefit">{{ benefit.benefit_name }}</label>
+                          <span class="text-xs text-danger glyphicon glyphicon-asterisk"></span>
+                      </th>
+                      <td>
+                          <input type="text" formControlName="id_{{benefit.benefit_code}}_benefit" class="form-control w-sm" /> 
+                      </td>
+                    </tr>
+              </table>   
             </div>
 
-            <div class="col-lg-4">
-                <p *ngFor="let deduction of deductionRows">
-                  {{ deduction.deduction_name }} <input type="text" formControlName="id_{{deduction.deduction_code}}_deduction" class="form-control w-sm" />    
-                </p>
+            <div class="col-lg-6">   
+                <div style="padding:5px; background-color:#e6e6e6">
+                  사원명 : {{ userId }}
+                </div>          
+                <table>
+                    <tr *ngFor="let deduction of deductionRows">
+                      <th>
+                          <label for="id_{{deduction.deduction_code}}_deduction">{{ deduction.deduction_name }}</label>
+                          <span class="text-xs text-danger glyphicon glyphicon-asterisk"></span>
+                      </th>
+                      <td>
+                          <input type="text" formControlName="id_{{deduction.deduction_code}}_deduction" class="form-control w-sm" />    
+                      </td>
+                    </tr>
+              </table>          
             </div>
-            
+
           </div>
 
         </div>
