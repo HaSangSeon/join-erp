@@ -23,24 +23,9 @@
     <ngx-datatable [style.height.px]=gridHeight class="bootstrap" [rows]="rows" [columnMode]="'force'" [headerHeight]="30"
       [rowHeight]="30" [scrollbarV]="true" [scrollbarH]="false" [selectionType]="'checkbox'" [messages]="messages"
       >
-      <ngx-datatable-column prop="id" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false"
-        [resizeable]="false" headerClass="checkAll" cellClass="text-center">
-        <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
-          let-selectFn="selectFn">
-          <label class="i-checks i-checks-sm m-b-none">
-            <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" /><i></i>
-          </label>
-        </ng-template>
-        <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
-          let-onCheckboxChangeFn="onCheckboxChangeFn">
-          <label class="i-checks i-checks-sm m-b-none">
-            <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" /><i></i>
-          </label>
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column prop="" name="사번" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="성명" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
-      <ngx-datatable-column prop="" name="부서" [resizeable]="false"></ngx-datatable-column>
+      <ngx-datatable-column prop="user_id" name="사번" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="user_name" name="성명" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
+      <ngx-datatable-column prop="dept_name" name="부서" [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
     </ngx-datatable>
   </div>
 
@@ -58,7 +43,7 @@
 </div>
 
 <!-- 사원등록 -->
-<div bsModal #InputFormModal="bs-modal" id="input-form" class="modal modal-xl-center fade" tabindex="-1" role="dialog"
+<!-- <div bsModal #InputFormModal="bs-modal" id="input-form" class="modal modal-xl-center fade" tabindex="-1" role="dialog"
   aria-hidden="true">
   <div class="modal-dialog modal-xl modal-xl-center">
     <div class="modal-content modal-xl">
@@ -77,34 +62,32 @@
 
           <div class="form-group">
             <div class="row">
-              <label for="passenger_name" class="col-lg-2 control-label">
+              <label for="user_id" class="col-lg-2 control-label">
                 사번
               </label>
               <div class="col-lg-4">
-                <input type="text" name="passenger_phone" id="passenger_phone" value="" class="form-control w-sm"
+                <input type="text" formControlName="user_id" id="user_id" class="form-control w-sm"
                   style="float: left" />
                 <label>&nbsp;</label>
                 <button type="button" (click)="Save()" [disabled]="!inputForm.valid"
                   class="btn btn-info btn-save">중복체크</button>
               </div>
-              <label for="passenger_phone" class="col-lg-2 control-label">
+              <label for="user_pw" class="col-lg-2 control-label">
                 비밀번호
               </label>
               <div class="col-lg-4">
-                <input type="text" name="passenger_phone" id="passenger_phone" value=""
-                  class="form-control inline w-sm" />
+                <input type="text" formControlName="user_pw" id="user_pw" class="form-control inline w-sm" />
               </div>
             </div>
           </div>
 
           <div class="form-group">
             <div class="row">
-              <label for="passenger_name" class="col-lg-2 control-label">
+              <label for="user_name" class="col-lg-2 control-label">
                 성명
               </label>
               <div class="col-lg-4">
-                <input type="text" name="passenger_phone" id="passenger_phone" value=""
-                  class="form-control inline w-sm" />
+                <input type="text" formControlName="user_name" id="user_name" class="form-control inline w-sm" />
               </div>
               <label for="passenger_phone" class="col-lg-2 control-label">
                 주민등록번호
@@ -360,7 +343,7 @@
 
   </div>
 
-</div>
+</div> -->
 
 <div *ngIf="isLoadingProgress" class="loading-progress">
 
