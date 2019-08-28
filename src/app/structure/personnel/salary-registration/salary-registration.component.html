@@ -20,7 +20,9 @@
       [headerHeight]="30" [rowHeight]="30" [scrollbarV]="true" [scrollbarH]="false" [selected]="selected"
       [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" [messages]="messages">
 
-      <ngx-datatable-column prop="year_month" name="귀속연월" [resizeable]="false" cellClass="text-center">
+      <ngx-datatable-column prop="year" name="귀속연" [resizeable]="false" cellClass="text-center">
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="month" name="귀속월" [resizeable]="false" cellClass="text-center">
       </ngx-datatable-column>
       <ngx-datatable-column prop="pay_num" name="차수" [width]="100" [canAutoResize]="false" [resizeable]="false"
         cellClass="text-center">

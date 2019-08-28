@@ -7,27 +7,26 @@
       <div class="col-sm-6">
         <form [formGroup]="searchForm">
           <div class="col-lg-1">
-            <select formControlName="year" class="form-control w-xs">
-              <option value="">전체</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-              <option value="2020">2020</option>
+            <select formControlName="year" (change)="changeYear()" class="form-control w-xs">
+              <option value="">...</option>
+              <option *ngFor="let year of arrYear" value="{{ year }}">{{ year }}</option>
             </select>
           </div>
           <div class="col-lg-1 se" >
-            <select formControlName="month" class="form-control w-xs">
-              <option value="">전체</option>
-              <option *ngFor="let month of arr_month" value="{{month}}">{{month+"월"}}</option>
+            <select formControlName="month" (change)="changeMonth()" disabled="disabled" class="form-control w-xs">
+              <option value="">...</option>
+              <option *ngFor="let month of arrMonth" value="{{month}}">{{month+"월"}}</option>
             </select>
           </div>
           <div class="col-lg-1 se">
-            <select formControlName="pay_num" class="form-control w-xs">
+            <select formControlName="pay_num" (change)="changePayNum()" disabled="disabled" class="form-control w-xs">
+              <option value="">...</option>
               <option value="1">1</option>
             </select>
           </div>
           <div class="col-lg-1 se">
-            <select formControlName="pay_type" class="form-control w-xs">
-              <option value="">전체</option>
+            <select formControlName="pay_type" disabled="disabled" class="form-control w-xs">
+              <option value="">...</option>
               <option value="10">급여</option>
               <option value="20">급여상여</option>
               <option *ngFor="let pay_type of arr_pay_type" value="{{pay_type}}">{{"상여"+pay_type+"회"}}</option>
@@ -115,15 +114,12 @@
         </div>
 
         <div class="modal-body">
-          <input type="hidden" formControlName="year" />
-          <input type="hidden" formControlName="month" />
-          <input type="hidden" formControlName="user_id" />
 
           <div class="row">
 
             <div class="col-lg-6">
                 <div style="padding:5px; background-color:#e6e6e6">
-                 귀속년월 : {{ inputForm.value.year }}년 {{ inputForm.value.month }}월
+                 귀속년월 : {{ year }}년 {{ month }}월
                 </div>
                 <table>
                     <tr *ngFor="let benefit of benefitRows">

@@ -111,8 +111,8 @@ export class SalaryRegistrationComponent implements OnInit {
 
   Save() {
     let formData = this.inputForm.value;
-    formData.pay_num = formData.pay_num * 1;
-    formData.pay_type = formData.pay_type * 1;
+    formData.pay_num = formData.pay_num ;
+    formData.pay_type = formData.pay_type;
     formData.tax_calculation = formData.tax_calculation * 1;
     formData.s_period = this.datePipe.transform(formData.s_period, 'yyyy-MM-dd');
     formData.e_period = this.datePipe.transform(formData.e_period, 'yyyy-MM-dd');

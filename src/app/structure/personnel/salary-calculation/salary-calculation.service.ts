@@ -23,6 +23,10 @@ export class SalaryCalculationService {
   GetAll (params): Observable<Item[]> {
     return this.http.get<Item[]>(this.url, {params: params});
   }
+
+  GetPaymentYm (): Observable<Item[]> {
+    return this.http.get<Item[]>(this.globals.serverUrl + '/salary-registration', {});
+  }
   
   GetBenefit (params): Observable<Item[]> {
     return this.http.get<Item[]>(this.globals.serverUrl + '/salary/benefit', {params: params});

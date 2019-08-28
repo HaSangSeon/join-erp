@@ -23,16 +23,19 @@ export class SalaryCalculationComponent implements OnInit {
   inputForm: FormGroup;
   errorMessage: string;
 
+  refId: string;
   year: string;
   month: string;
   userId: string;
   userName: string;
 
   colArray = [];
-  arr_month = [];
-  arr_pay_type = [];
+  arrYear = [];
+  arrMonth = [];
+  tmpYm = [];
 
   rows = [];
+  paymentYmRows = [];
   benefitRows = [];
   deductionRows = [];
 
@@ -57,7 +60,6 @@ export class SalaryCalculationComponent implements OnInit {
   ) 
   {
 
-
     this.searchForm = fb.group({
         year: [this.rcvDate.split('-')[0], Validators.required],
         month: [this.rcvDate.split('-')[1], Validators.required],
@@ -71,22 +73,63 @@ export class SalaryCalculationComponent implements OnInit {
       user_id: ''
     });
 
-    for(var i=1; i<=12; i++) {
-      let s = i < 10 ? '0'+i : i;
-      this.arr_month.push(s);
-    }
-    for(var i=1; i<=9; i++) {
-      this.arr_pay_type.push(i);
-    }
-
-
   }
 
   ngOnInit() {
     this.panelTitle='급여정보'
     this.inputFormTitle = '급여계산';
    
-    this.getAll();  
+    
+    let tmpYear = [];
+
+    //급여연월등록 검색
+    this.dataService.GetPaymentYm().subscribe(
+      listData => {
+        this.paymentYmRows = listData['data'];
+        
+        this.arrYear = [];
+        for(let i in listData['data']) {          
+          if(tmpYear.indexOf(listData['data'][i]['year']) < 0) {
+            this.arrYear.push(listData['data'][i]['year']);
+          }
+          tmpYear.push(listData['data'][i]['year']);
+          this.tmpYm.push(listData['data'][i]['year'] + '::' + listData['data'][i]['month']);
+        }
+
+      }
+    );
+
+
+  }
+
+  changeYear() {
+    let schForm = this.searchForm;
+    schForm.patchValue({month:'', pay_num:'', pay_type:''});
+    schForm.controls['month'].enable();
+    schForm.controls['pay_num'].disable();
+    schForm.controls['pay_type'].disable();
+
+    this.arrMonth = [];
+    for(let i in this.paymentYmRows) {          
+      if(this.tmpYm.indexOf(schForm.value.year + '::' + this.paymentYmRows[i]['month']) >= 0) {
+        this.paymentYmRows[i]['month'] = this.paymentYmRows[i]['month'] < 10 ? '0' + this.paymentYmRows[i]['month'] : this.paymentYmRows[i]['month'];
+        this.arrMonth.push(this.paymentYmRows[i]['month']);
+      }
+    }
+
+  }
+
+  changeMonth() {
+    let schForm = this.searchForm;
+    schForm.patchValue({pay_num:'', pay_type:''});
+    schForm.controls['pay_num'].enable();
+    schForm.controls['pay_type'].disable();
+  }
+
+  changePayNum() {
+    let schForm = this.searchForm;
+    schForm.patchValue({pay_type:''});
+    schForm.controls['pay_type'].enable();
   }
 
   getAll() {
@@ -120,12 +163,12 @@ export class SalaryCalculationComponent implements OnInit {
 
       this.rows = [];  
       this.colArray = [];
-      let prm2 = {
-        year : schFormData.year,
-        month : schFormData.month
+
+      let prm = {
+        ref_id: this.refId
       }
       this.isLoadingProgress = true;
-      this.dataService.GetAll(prm2).subscribe(
+      this.dataService.GetAll(prm).subscribe(
         listData => {
         
           this.isLoadingProgress = false;
@@ -151,7 +194,6 @@ export class SalaryCalculationComponent implements OnInit {
             let item_type = d[3];
             let item_code = d[4];
 
-            console.log(d);
             let ob :any = {
               'year': year,
               'month': month,
@@ -191,17 +233,27 @@ export class SalaryCalculationComponent implements OnInit {
             userArray.push(user_id);
           }
 
+          //검색을 했을경우 refId 생성
+          this.refId = schFormData.year + "-" + schFormData.month + "-" + schFormData.pay_num + "-" + schFormData.pay_type;
+
         }
       );
 
     }, 100);
     
 
+
   }
 
 
 
   Save() {
+
+    if(!this.year || !this.month || !this.userId || !this.refId) {
+      this.messageService.add("잘못된 접근입니다.");
+      return false;
+    }
+
     let formData = this.inputForm.value;
 
     let rowData = [];
@@ -221,10 +273,11 @@ export class SalaryCalculationComponent implements OnInit {
       rowData.push(colData.join(':#:'));
     }
     const saveData = {
-        year: this.year,
-        month: this.month,
-        user_id: this.userId,
-        pattern_data: rowData.join('=||=')
+      year: this.year,
+      month: this.month,
+      user_id: this.userId,
+      ref_id: this.refId,
+      pattern_data: rowData.join('=||=')
     }
 
     this.dataService.Save(saveData)
@@ -244,13 +297,14 @@ export class SalaryCalculationComponent implements OnInit {
 
 
   openModal(method, obj) {
+    
+    let schFormData = this.searchForm.value;
+
+    this.year = schFormData.year;
+    this.month = schFormData.month;
 
     this.userId = obj.user_id;
     this.userName = obj.user_name;
-
-    let schFormData = this.searchForm.value;
-    this.inputForm.patchValue({year:schFormData.year, month:schFormData.month, user_id:obj.user_id});
-
 
     this.inputFormModal.show();
 
