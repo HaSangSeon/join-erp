@@ -17,7 +17,7 @@ export class SalaryService {
     private globals: AppGlobals
   ) { }
 
-  private url = this.globals.serverUrl + '/salary/benefit';
+  private url = this.globals.serverUrl + '/salary';
 
   GetAll(params): Observable<Item[]> {
     return this.http.get<Item[]>(this.url, { params: params });
@@ -35,6 +35,7 @@ export class SalaryService {
   GetById (id:number): Observable<Item> {
     return this.http.get<Item>(this.url+'/'+id);
   }
+  
   /** PUT: 데이터 수정 */
   Update(id: number, data: Item): Observable<Item> {
     return this.http.put<Item>(this.url + '/' + id, data, httpOptions);

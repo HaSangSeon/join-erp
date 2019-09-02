@@ -14,7 +14,7 @@ export class EmployeeService {
     private globals: AppGlobals
   ) { }
   
-  private url = this.globals.serverUrl + '/users';
+  private url = this.globals.serverUrl + '/employee';
 
   GetAll(params): Observable<Item[]> {
     return this.http.get<Item[]>(this.url, { params: params });

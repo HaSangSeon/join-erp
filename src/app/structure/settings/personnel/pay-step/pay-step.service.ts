@@ -17,7 +17,7 @@ export class PayStepService {
     private globals: AppGlobals
   ) { }
 
-  private url = this.globals.serverUrl + '/payStep';
+  private url = this.globals.serverUrl + '/pay-step';
 
   GetAll(params): Observable<Item[]> {
     return this.http.get<Item[]>(this.url, { params: params });

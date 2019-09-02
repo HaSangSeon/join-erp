@@ -156,7 +156,6 @@ export class SalaryComponent implements OnInit {
     this.dataService.Create(data)
       .subscribe(
         data => {
-
           if (data['result'] == 'success') {
             this.inputForm.reset();
             this.configService.load();

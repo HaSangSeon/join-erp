@@ -19,28 +19,6 @@
         <ngx-datatable [style.height.px]=gridHeight class="bootstrap" [rows]="rows" [columnMode]="'force'"
             [headerHeight]="30" [rowHeight]="30" [scrollbarV]="true" [scrollbarH]="false" [selected]="selected"
             [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" [messages]="messages">
-            <ngx-datatable-column prop="id" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false"
-                [resizeable]="false" headerClass="checkAll" cellClass="text-center">
-                <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
-                    let-selectFn="selectFn">
-                    <label class="i-checks i-checks-sm m-b-none">
-                        <input type="checkbox" [checked]="allRowsSelected"
-                            (change)="selectFn(!allRowsSelected)" /><i></i>
-                    </label>
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
-                    let-onCheckboxChangeFn="onCheckboxChangeFn">
-                    <label class="i-checks i-checks-sm m-b-none">
-                        <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" /><i></i>
-                    </label>
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="No" [width]="1" [width]="50" [canAutoResize]="false" [resizeable]="false"
-                cellClass="text-center">
-                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex">
-                    <div>{{ rowIndex+1 }}</div>
-                </ng-template>
-            </ngx-datatable-column>
             <ngx-datatable-column prop="benefit_name" name="수당명" [resizeable]="false" cellClass="text-center">
             </ngx-datatable-column>
             <ngx-datatable-column prop="benefit_code" name="수당코드" [resizeable]="false" cellClass="text-center">

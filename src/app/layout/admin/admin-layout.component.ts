@@ -40,6 +40,8 @@ export class AdminLayoutComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        console.log(this.globals);
+        console.log(this.navitems);
         this.router.events.subscribe((event) => {
 
             if ( event instanceof NavigationEnd ) {

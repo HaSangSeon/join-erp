@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SalaryRegistrationComponent } from './salary-registration/salary-registration.component';
 import { SalaryCalculationComponent } from './salary-calculation/salary-calculation.component';
-import { PayrollComponent } from './payroll/payroll.component';
+import { SalaryPayrollComponent } from './salary-payroll/salary-payroll.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -19,8 +19,7 @@ export const routes: Routes=[
   { path: '', redirectTo: 'salary-registration'},
   { path: 'salary-registration', component: SalaryRegistrationComponent, data: { title: '인사/급여 > 급여지급연월등록', id:1101 }},
   { path: 'salary-calculation', component: SalaryCalculationComponent, data: { title: '인사/급여 > 급여계산', id:1102 }},
-  { path: 'payroll', component: PayrollComponent, data: { title: '인사/급여 > 급여대장', id:1103}}
-  
+  { path: 'salary-payroll', component: SalaryPayrollComponent, data: { title: '인사/급여 > 급여대장', id:1103}}
 ]
 
 
@@ -48,7 +47,7 @@ export function getDatepickerConfig(): BsDatepickerConfig{
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SalaryRegistrationComponent, SalaryCalculationComponent, PayrollComponent],
+  declarations: [SalaryRegistrationComponent, SalaryCalculationComponent, SalaryPayrollComponent],
   providers:[
     {provide: BsDatepickerConfig, useFactory: getDatepickerConfig}
   ]

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { MessageService } from '../../../../message.service';
 import { AppGlobals } from '../../../../app.globals';
-import { EmployeeService } from './employeel.service';
+import { EmployeeService } from './employee.service';
 import { Item } from './employee.item';
 
 @Component({
