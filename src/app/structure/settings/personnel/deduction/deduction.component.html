@@ -18,24 +18,6 @@
       <ngx-datatable [style.height.px]=gridHeight class="bootstrap" [rows]="rows" [columnMode]="'force'" [headerHeight]="30"
         [rowHeight]="30" [scrollbarV]="true" [scrollbarH]="false" [selectionType]="'checkbox'" [messages]="messages"
         >
-        <ngx-datatable-column prop="id" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false"
-          [resizeable]="false" headerClass="checkAll" cellClass="text-center">
-          <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
-            let-selectFn="selectFn">
-            <label class="i-checks i-checks-sm m-b-none">
-              <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" /><i></i>
-            </label>
-          </ng-template>
-          <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
-            let-onCheckboxChangeFn="onCheckboxChangeFn">
-            <label class="i-checks i-checks-sm m-b-none">
-              <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" /><i></i>
-            </label>
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="No" [width]="50" [canAutoResize]="false" [resizeable]="false" cellClass="text-center">
-          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"><span>{{rowIndex+1}}</span></ng-template>
-        </ngx-datatable-column>
         <ngx-datatable-column prop="deduction_name" name="수당명" [width]="200" [canAutoResize]="false"  [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
         <ngx-datatable-column prop="acct_code" name="계정코드" [width]="200" [canAutoResize]="false"  [resizeable]="false" cellClass="text-center"></ngx-datatable-column>
         <ngx-datatable-column name="계산식" [resizeable]="false" [width]="200" [canAutoResize]="false"  cellClass="text-center">
@@ -58,8 +40,7 @@
       </ngx-datatable-column>
       </ngx-datatable>
     </div>
-  
-  
+
     <div class="panel-footer text-right">
   
       <button (click)="openModal('write','')" cd class="btn btn-sm btn-primary btn-addon">

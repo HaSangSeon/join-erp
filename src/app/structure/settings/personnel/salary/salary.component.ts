@@ -78,7 +78,6 @@ export class SalaryComponent implements OnInit {
     this.dataService.GetAll(params).subscribe(
       listData => {
         this.listData = listData;
-        console.log(listData)
         this.temp = listData['data'];
         this.rows = listData['data'];
         
@@ -156,6 +155,7 @@ export class SalaryComponent implements OnInit {
     this.dataService.Create(data)
       .subscribe(
         data => {
+          console.log("result: "+ data['result'])
           if (data['result'] == 'success') {
             this.inputForm.reset();
             this.configService.load();

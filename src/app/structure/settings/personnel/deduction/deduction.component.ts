@@ -71,9 +71,6 @@ export class DeductionComponent implements OnInit {
       1: '반올림', 2:'절상', 3:'절사'
     }
 
-
-    
-
   }
 
   ngOnInit() {
